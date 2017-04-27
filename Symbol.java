@@ -9,12 +9,15 @@
 
 package Symbol;
 
-public class Symbol {
+import java.io.*;
+import java.util.*;
+
+interface Symbol {
 	public String toString();
 	public static Symbol symbol(String s);
 }
 
-public class Table {
+/*public class Table {
 	
 	public Table();
 	public void put(Symbol key, Object value);
@@ -24,4 +27,4 @@ public class Table {
 	public java.util.Enumeration keys();
 
 	
-}
+}*/
