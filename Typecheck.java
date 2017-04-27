@@ -5,13 +5,17 @@
  *
  */
 
+package visitor;
+package syntaxtree;
+
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.util.Scanner;
 
-public class Typecheck{
+public class Typecheck extends DepthFirstVisitor{
 
    public static void main(String args[]){
 	
