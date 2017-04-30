@@ -25,7 +25,20 @@ class Table{
 		System.out.print("\t" + table);
 	}
 	
-	public boolean search(String name){
+	public boolean check4name(String name){
 		return table.containsKey(name);
+	}
+
+	public boolean check4type(String type){
+		return table.containsValue(type);
+	}
+
+	public boolean compTypes(String name1, String name2){
+		if(table.get(name1) == table.get(name2)){
+			return true;
+		}else{
+			return false;
+
+		}
 	}
 }

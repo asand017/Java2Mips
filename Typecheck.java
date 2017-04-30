@@ -20,6 +20,10 @@ import syntaxtree.*;
 
 public class Typecheck extends DepthFirstVisitor{
 
+   public static boolean firstpass = true;
+
+   public static String Exp = "";
+
    public static boolean ident = false;
 
    public static boolean of_type = false;
@@ -62,35 +66,79 @@ public class Typecheck extends DepthFirstVisitor{
    }
 
    public void visit(Identifier n) { //make sure to check symbol table for duplicate names
-	if(Type == "class"){
-	    table.add(n.f0.toString(), Type);
-	    Type = "";
-	}else if(Type == "String"){
-	    table.add(n.f0.toString(), "String[]");
-	    Type = "";
-	}else if(Type == "int[]"){
-	    table.add(n.f0.toString(), Type);
-	    Type = "";
-	}else if(Type == "boolean"){
-	    table.add(n.f0.toString(), Type);
-	    Type = "";
-	}else if(Type == "int"){
-	    table.add(n.f0.toString(), Type);
-	    Type = "";
-	}else if(Type != ""){ //if a identifier is being used has a object/data type. i.e. 'Fac x'
-	    
-	    if(of_type == false) {
-		Type = n.f0.toString();
-		of_type = true;
- 	    }
+	if(firstpass){ //populating symbol table
+		if(Type == "class"){
+		    table.add(n.f0.toString(), Type);
+		    Type = "";
+		}else if(Type == "String"){
+		    table.add(n.f0.toString(), "String[]");
+		    Type = "";
+		}else if(Type == "int[]"){
+		    table.add(n.f0.toString(), Type);
+		    Type = "";
+		}else if(Type == "boolean"){
+		    table.add(n.f0.toString(), Type);
+		    Type = "";
+		}else if(Type == "int"){
+		    table.add(n.f0.toString(), Type);
+		    Type = "";
+		}else if(Type != ""){ //if a identifier is being used has a object/data type. i.e. 'Fac x'
+		    
+		    if(of_type == false) {
+			Type = n.f0.toString();
+			of_type = true;
+		    }
 
-	    else {
-		table.add(n.f0.toString(), Type);
-	        Type = "";
-		of_type = false;
-	    }
+		    else {
+			table.add(n.f0.toString(), Type);
+			Type = "";
+			of_type = false;
+		    }
 
+		}
+	}else{ // check statements and expressions
+		if(Exp == "PrimaryExpression"){
+		    
+		}
 	}
+   }
+
+   public void visit(AndExpression n){ // #1(bool) && #2(bool)
+
+	Exp = "AndExpression";
+	
+	System.out.print(n.f0.toString() + "\n");
+	System.out.print(n.f2.toString() + "\n");	
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+   }
+
+   public void visit(CompareExpression n){
+
+	Exp = "CompareExpression";
+	
+	//System.out.print(n.f0.toString() + "\n");
+	//System.out.print(n.f2.toString() + "\n");
+	
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);	
+   }
+
+   public void visit(PrimaryExpression n){
+	
+	Exp = "PrimaryExpression";
+
+	System.out.print(n.f0.toString() + "\n");
+	n.f0.accept(this);
+   }
+
+   public void visit(IntegerLiteral n){
+	//int x = Integer.valueOf((String) n.f0.toString());
+	//System.out.print(x);
+	n.f0.accept(this);
    }
 
    public void visit(VarDeclaration n) {
@@ -138,8 +186,10 @@ public class Typecheck extends DepthFirstVisitor{
 		
 		Goal root = parser.Goal();
 		Typecheck n = new Typecheck();
-		n.visit(root);
-		
+		n.visit(root); //first pass
+		firstpass = false;
+		n.visit(root); //second pass
+
 		table.printall();		
 
 		//System.out.println("Program type checked successfully");
