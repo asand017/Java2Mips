@@ -24,4 +24,8 @@ class Table{
 	public void printall(){
 		System.out.print("\t" + table);
 	}
+	
+	public boolean search(String name){
+		return table.containsKey(name);
+	}
 }

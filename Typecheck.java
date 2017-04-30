@@ -19,6 +19,8 @@ public class Typecheck extends DepthFirstVisitor{
 
    public static boolean ident = false;
 
+   public static boolean of_type = false;
+
    public static String Type = "";
 
    public static Table table = new Table();
@@ -72,11 +74,24 @@ public class Typecheck extends DepthFirstVisitor{
 	}else if(Type == "int"){
 	    table.add(n.f0.toString(), Type);
 	    Type = "";
-	}else if(Type == ""){ //POTENTIAL PROBLEM AREA
-	    Type = n.f0.toString();
+	//}else if(Type == ""){ //POTENTIAL PROBLEM AREA
+	   // if(table.search(n.f0.toString())){
+	//	Type = n.f0.toString();
+	  //  }
 	}else if(Type != ""){
-	    table.add(n.f0.toString(), Type);
-	    Type = "";
+	    
+	    //table.add(n.f0.toString(), Type);
+	    if(of_type == false) {
+		Type = n.f0.toString();
+		of_type = true;
+ 	    }
+
+	    else {
+		table.add(n.f0.toString(), Type);
+	        Type = "";
+		of_type = false;
+	    }
+
 	}
    }
 
@@ -88,9 +103,7 @@ public class Typecheck extends DepthFirstVisitor{
 
    public void visit(Type n) {
 	
-	if(!(n.f0 instanceof Identifier)){
-		Type = n.f0.toString();
-	}
+	Type = n.f0.toString();
 
 	n.f0.accept(this);
    }
