@@ -20,4 +20,8 @@ class Table{
 	public Object delete(String name){
 		return table.remove(name);
 	}
+
+	public void printall(){
+		System.out.print("\t" + table);
+	}
 }
