@@ -32,6 +32,10 @@ class Table{
 	public boolean check4type(String type){
 		return table.containsValue(type);
 	}
+	
+	public String getType(String name){
+		return (String) table.get(name);
+	}
 
 	public boolean compTypes(String name1, String name2){
 		if(table.get(name1) == table.get(name2)){

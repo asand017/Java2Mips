@@ -20,6 +20,34 @@ import syntaxtree.*;
 
 public class Typecheck extends DepthFirstVisitor{
 
+   //2 global vars to hold left and right sides of conditional operators
+   public static String lhs = "";
+   public static String rhs = "";
+   public static boolean allow = false;
+
+   public void enable_comp(String a){ //enables comparision of 2 side of a conditional
+	if(allow && lhs == ""){
+		lhs = a;
+	}else{
+		rhs = a;
+	}
+   }
+
+   public void reset(){ //reset compared value variables
+	allow = false;
+	lhs = "";
+	rhs = "";
+   }
+
+   public void compare(){ // compare lhs and rhs of comparators
+	if(lhs == rhs){
+	    
+	}else{
+	    System.out.println("Type Error");
+	    System.exit(0);
+	}
+   }
+
    public static boolean firstpass = true;
 
    public static String Exp = "";
@@ -32,9 +60,9 @@ public class Typecheck extends DepthFirstVisitor{
 
    public static Table table = new Table();
 
+   public static Symbol sym = new Symbol();
+	
    public static int scope = 0;
-
-   public static syntaxtree.NodeChoice next;
 
    public void visit(MainClass n) {
 
@@ -52,6 +80,10 @@ public class Typecheck extends DepthFirstVisitor{
 	n.f6.accept(this);
 
 	table.add(n.f5.toString(), n.f6.toString());
+	/*sym.scope = scope; // record symbol table set change
+	sym.type = n.f6.toString();
+	sym.name = n.f5.toString();
+	table.changes.add(sym);*/
 
 	n.f7.accept(this);
 	n.f8.accept(this);
@@ -61,13 +93,21 @@ public class Typecheck extends DepthFirstVisitor{
 	Type = n.f8.toString();
 	
 	n.f11.accept(this);
+
 	n.f12.accept(this);
 	n.f13.accept(this);
+	
+	scope = scope + 1; // entering new scope
+
 	n.f14.accept(this);
 	n.f15.accept(this);
 	n.f16.accept(this);
+
+	scope = scope - 1; // exiting scope
+
 	n.f17.accept(this);
 
+	scope = scope - 1; //exiting scope
    }
 
    public void visit(Identifier n) { //make sure to check symbol table for duplicate names
@@ -75,9 +115,17 @@ public class Typecheck extends DepthFirstVisitor{
 	
 		if(Type == "class"){
 		    table.add(n.f0.toString(), Type);
+		    /*sym.scope = scope; // record symbol table set change
+		    sym.type = Type;
+		    sym.name = n.f0.toString();
+    		    table.changes.add(sym);*/
 		    Type = "";
 		}else if(Type == "String"){
 		    table.add(n.f0.toString(), "String[]");
+		    /*sym.scope = scope; // record symbol table set change
+		    sym.type = "String[]";
+		    sym.name = n.f0.toString();
+		    table.changes.add(sym);*/
 		    Type = "";
 		}else if(Type == "int[]"){
 		    table.add(n.f0.toString(), Type);
@@ -114,8 +162,8 @@ public class Typecheck extends DepthFirstVisitor{
 		    System.exit(0);
 		}
 
-		if(Exp == "PrimaryExpression"){
-		    
+		if(Exp == "AndExpression"){
+		    //enable_comp(
 		}
 	}
    }
@@ -124,14 +172,17 @@ public class Typecheck extends DepthFirstVisitor{
 
 	Type = n.f0.toString();
 
-	scope = scope + 1;
-
 	n.f0.accept(this);
 	n.f1.accept(this);
 	n.f2.accept(this);
+		
+	scope = scope + 1;
+	
 	n.f3.accept(this);
 	n.f4.accept(this);
 	n.f5.accept(this);
+
+	scope = scope - 1;
    }
 
    public void visit(ClassExtendsDeclaration n){
@@ -148,10 +199,11 @@ public class Typecheck extends DepthFirstVisitor{
 	n.f5.accept(this);
 	n.f6.accept(this);
 	n.f7.accept(this);
+
+	scope = scope - 1;
    }
 
    public void visit(MethodDeclaration n){
-
 	n.f0.accept(this);
 	n.f1.accept(this);
 	n.f2.accept(this);
@@ -159,52 +211,66 @@ public class Typecheck extends DepthFirstVisitor{
 	n.f4.accept(this);
 	n.f5.accept(this);
 	n.f6.accept(this);
+
+	scope = scope + 1; // increment scope
+
 	n.f7.accept(this);
 	n.f8.accept(this);
 	n.f9.accept(this);
 	n.f10.accept(this);
 	n.f11.accept(this);
-	n.f12.accept(this);	
+	n.f12.accept(this);
+
+	scope = scope - 1; // decrement scope
    }
 
    public void visit(AndExpression n){ // #1(bool) && #2(bool)
 
 	Exp = "AndExpression";
 	
-	System.out.print(n.f0.toString() + "\n");
-	System.out.print(n.f2.toString() + "\n");	
+	//System.out.print(n.f0.toString() + "\n");
+	//System.out.print(n.f2.toString() + "\n");	
+
+	allow = true;	
 
 	n.f0.accept(this);
 	n.f1.accept(this);
 	n.f2.accept(this);
+
+	compare();
+	reset();
+
+   }
+
+   public void visit(IntegerLiteral n){
+	n.f0.accept(this);
+	enable_comp("int");
+   }
+
+   public void visit(TrueLiteral n){
+	n.f0.accept(this);
+	enable_comp("boolean");
+   }
+
+   public void visit(FalseLiteral n){
+	n.f0.accept(this);
+	enable_comp("boolean");
    }
 
    public void visit(CompareExpression n){
 
 	Exp = "CompareExpression";
 	
-	//System.out.print(n.f0.toString() + "\n");
-	//System.out.print(n.f2.toString() + "\n");
 	
 	n.f0.accept(this);
 	n.f1.accept(this);
 	n.f2.accept(this);	
    }
 
-   public void visit(PrimaryExpression n){
-	
-	Exp = "PrimaryExpression";
+   /*public void visit(PrimaryExpression n){
 
-	//System.out.print(n.f0.toString() + "\n");
-	next = n.f0;
 	n.f0.accept(this);
-   }
-
-   public void visit(IntegerLiteral n){
-	//int x = Integer.valueOf((String) n.f0.toString());
-	//System.out.print(x);
-	n.f0.accept(this);
-   }
+   }*/
 
    public void visit(VarDeclaration n) {
 	n.f0.accept(this);
@@ -249,13 +315,18 @@ public class Typecheck extends DepthFirstVisitor{
 
 		MiniJavaParser parser = new MiniJavaParser(in);	
 		
+		//System.out.println(scope);
+
 		Goal root = parser.Goal();
 		Typecheck n = new Typecheck();
 		n.visit(root); //first pass
 		firstpass = false;
 		n.visit(root); //second pass
 
-		table.printall();		
+		table.printall();	
+		//System.out.print("\n");
+		//System.out.println(table.changes);
+		//System.out.println(scope);	
 
 		//System.out.println("Program type checked successfully");
 	} catch(Exception e){
