@@ -1,30 +1,30 @@
-/* Team Members: Aaron Sanders, Crisitian Ibarra, Leon Peng
+/*
  *
  *
- * Symbol.java
- * - From texbook, page 109
+ *
  *
  *
  */
 
-package Symbol;
+import java.*;
 
-import java.io.*;
-import java.util.*;
+public class Symbol {
 
-interface Symbol {
-	public String toString();
-	public static Symbol symbol(String s);
+	public int scope;
+	public Object type;
+	public String name;
+
+	
+
+	/*private String name;
+	private Symbol(String n) {name=n;}
+	private static java.util.Dictionary dict = new java.util.Hashtable();
+	
+	public String toString() {return name;}
+	public static Symbol symbol(String n) {
+		String u = n.intern();
+		Symbol s = (Symbol)dict.get(u);
+		if(s==null) {s = new Symbol(u); dict.put(u,s); }
+		return s;
+	}*/
 }
-
-/*public class Table {
-	
-	public Table();
-	public void put(Symbol key, Object value);
-	public Object get(Symbol key);
-	public void beginScope();
-	public void endScope();
-	public java.util.Enumeration keys();
-
-	
-}*/

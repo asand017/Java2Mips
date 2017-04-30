@@ -15,7 +15,19 @@ import visitor.*;
 import syntaxtree.*;
 
 
-public class Typecheck{
+public class Typecheck extends DepthFirstVisitor{
+
+   public void visit(Goal n) {
+	//System.out.print("made it \n");
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+   }
+
+   public void visit(Identifier n) {
+	System.out.print(n.f0.toString());
+	System.out.print("\n");
+   }
 
    public static void main(String args[]){
 	
@@ -23,7 +35,19 @@ public class Typecheck{
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in)); //reading in console input
 
 		MiniJavaParser parser = new MiniJavaParser(in);	
+		
 		Goal root = parser.Goal();
+		Typecheck n = new Typecheck();
+		n.visit(root);
+		
+		
+		System.out.print(parser.getToken(1));		
+
+	 	//parser.ReInit(in);	
+		//MainClass mc = parser.MainClass(); 
+
+		
+		
 	
 	/*	String s; // string to hold input file per line
 		String a = ""; // string to hold the full input file
