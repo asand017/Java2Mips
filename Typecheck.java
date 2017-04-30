@@ -65,7 +65,7 @@ public class Typecheck extends DepthFirstVisitor{
 	if(Type == "class"){
 	    table.add(n.f0.toString(), Type);
 	    Type = "";
-	}else if(Type == "String"){ //come back to implement cases of pointer types, ie. String[]
+	}else if(Type == "String"){
 	    table.add(n.f0.toString(), "String[]");
 	    Type = "";
 	}else if(Type == "int[]"){
@@ -77,13 +77,8 @@ public class Typecheck extends DepthFirstVisitor{
 	}else if(Type == "int"){
 	    table.add(n.f0.toString(), Type);
 	    Type = "";
-	//}else if(Type == ""){ //POTENTIAL PROBLEM AREA
-	   // if(table.search(n.f0.toString())){
-	//	Type = n.f0.toString();
-	  //  }
-	}else if(Type != ""){
+	}else if(Type != ""){ //if a identifier is being used has a object/data type. i.e. 'Fac x'
 	    
-	    //table.add(n.f0.toString(), Type);
 	    if(of_type == false) {
 		Type = n.f0.toString();
 		of_type = true;
