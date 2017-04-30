@@ -34,6 +34,8 @@ public class Typecheck extends DepthFirstVisitor{
 
    public static int scope = 0;
 
+   public static syntaxtree.NodeChoice next;
+
    public void visit(MainClass n) {
 
 	Type = n.f0.toString();
@@ -48,6 +50,9 @@ public class Typecheck extends DepthFirstVisitor{
 	n.f4.accept(this);
 	n.f5.accept(this);
 	n.f6.accept(this);
+
+	table.add(n.f5.toString(), n.f6.toString());
+
 	n.f7.accept(this);
 	n.f8.accept(this);
 	n.f9.accept(this);
@@ -67,6 +72,7 @@ public class Typecheck extends DepthFirstVisitor{
 
    public void visit(Identifier n) { //make sure to check symbol table for duplicate names
 	if(firstpass){ //populating symbol table
+	
 		if(Type == "class"){
 		    table.add(n.f0.toString(), Type);
 		    Type = "";
@@ -97,10 +103,68 @@ public class Typecheck extends DepthFirstVisitor{
 
 		}
 	}else{ // check statements and expressions
+		
+		if(Type == "" && table.check4name(n.f0.toString())){
+		    System.out.print("Type error"); // duplicate name attempting to be used
+		    System.exit(0);
+		}
+
+		if(Type == "" && !table.check4name(n.f0.toString())){
+		    System.out.print("Type error: undeclared variable"); // variable hasn't been declared
+		    System.exit(0);
+		}
+
 		if(Exp == "PrimaryExpression"){
 		    
 		}
 	}
+   }
+
+   public void visit(ClassDeclaration n){
+
+	Type = n.f0.toString();
+
+	scope = scope + 1;
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+	n.f3.accept(this);
+	n.f4.accept(this);
+	n.f5.accept(this);
+   }
+
+   public void visit(ClassExtendsDeclaration n){
+
+	Type = n.f0.toString();
+
+	scope = scope + 1;
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+	n.f3.accept(this);	
+	n.f4.accept(this);
+	n.f5.accept(this);
+	n.f6.accept(this);
+	n.f7.accept(this);
+   }
+
+   public void visit(MethodDeclaration n){
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+	n.f3.accept(this);
+	n.f4.accept(this);
+	n.f5.accept(this);
+	n.f6.accept(this);
+	n.f7.accept(this);
+	n.f8.accept(this);
+	n.f9.accept(this);
+	n.f10.accept(this);
+	n.f11.accept(this);
+	n.f12.accept(this);	
    }
 
    public void visit(AndExpression n){ // #1(bool) && #2(bool)
@@ -131,7 +195,8 @@ public class Typecheck extends DepthFirstVisitor{
 	
 	Exp = "PrimaryExpression";
 
-	System.out.print(n.f0.toString() + "\n");
+	//System.out.print(n.f0.toString() + "\n");
+	next = n.f0;
 	n.f0.accept(this);
    }
 
