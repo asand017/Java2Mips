@@ -3,6 +3,9 @@
  * 
  * Typecheck.java
  *
+ * We finished off on VarDeclaration. Continue tracing through the MainClass production and continue
+ * populating the symbol table.
+ *
  */
 
 
