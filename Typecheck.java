@@ -47,7 +47,7 @@ public class Typecheck extends DepthFirstVisitor{
 	    //System.out.println(lhs);
 	    //System.out.println(rhs);
 	    System.out.println("Type Error");
-	    System.exit(0);
+	    System.exit(1);
 	}
    }
 
@@ -170,12 +170,12 @@ public class Typecheck extends DepthFirstVisitor{
 		
 		if(Type == "" && table.check4name(n.f0.toString())){
 		    System.out.print("Type error"); // duplicate name attempting to be used
-		    System.exit(0);
+		    System.exit(1);
 		}
 
 		if(Type == "" && !table.check4name(n.f0.toString())){
 		    System.out.print("Type error: undeclared variable"); // variable hasn't been declared
-		    System.exit(0);
+		    System.exit(1);
 		}
 
 		if(Exp == "AndExpression"){ // PE && PE
@@ -429,7 +429,7 @@ public class Typecheck extends DepthFirstVisitor{
 	
 	if(ExpType != "int"){
 	    System.out.println("Type error");
-	    System.exit(0);
+	    System.exit(1);
 	}
 	
 	n.f3.accept(this);
