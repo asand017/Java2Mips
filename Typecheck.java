@@ -165,8 +165,29 @@ public class Typecheck extends DepthFirstVisitor{
 		    System.exit(0);
 		}
 
-		if(Exp == "AndExpression"){
+		if(Exp == "AndExpression"){ // PE && PE
 		    enable_comp(table.getType(n.f0.toString()));
+		    Exp = "";
+		}
+		
+		if(Exp == "CompareExpression"){ // PE < PE
+		    enable_comp(table.getType(n.f0.toString()));
+		    Exp = "";
+		}
+
+		if(Exp == "PlusExpression"){ // PE + PE
+		    enable_comp(table.getType(n.f0.toString()));
+		    Exp = "";
+		}
+
+		if(Exp == "MinusExpression"){ // PE - PE
+		    enable_comp(table.getType(n.f0.toString()));
+		    Exp = "";
+		}
+
+		if(Exp == "TimesExpression"){ // PE * PE
+		    enable_comp(table.getType(n.f0.toString()));
+		    Exp = "";
 		}
 	}
    }
@@ -231,13 +252,48 @@ public class Typecheck extends DepthFirstVisitor{
 
 	Exp = "AndExpression";
 	
-	//System.out.print(n.f0.toString() + "\n");
-	//System.out.print(n.f2.toString() + "\n");	
-
 	allow = true;	
 
 	n.f0.accept(this);
 	n.f1.accept(this);
+
+	Exp = "AndExpression";
+
+	n.f2.accept(this);
+
+	compare();
+	reset();
+
+   }
+
+   public void visit(CompareExpression n){
+	
+	Exp = "CompareExpression";
+
+	allow = true;
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+
+	Exp = "CompareExpression";
+	
+	n.f2.accept(this);
+
+	compare();
+	reset();
+   }
+
+   public void visit(PlusExpression n){
+
+	Exp = "PlusExpression";
+
+	allow = true;
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+		
+	Exp = "PlusExpression";
+	
 	n.f2.accept(this);
 
 	compare();
@@ -245,14 +301,70 @@ public class Typecheck extends DepthFirstVisitor{
 
    }
  
-   public void visit(ArrayAllocationExpression n){
+   public void visit(MinusExpression n){
+
+	Exp = "MinusExpression";
+
+	allow = true;
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+
+	Exp = "MinusExpression";
+
+	n.f2.accept(this);
+
+	compare();
+	reset();
+
+   }
+
+
+   public void visit(TimesExpression n){
+
+	Exp = "TimesExpression";
+
+	allow = true;
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+
+	Exp = "TimesExpression";
+
+	n.f2.accept(this);
+
+	compare();
+	reset();
+
+   }
+
+   public void visit(ArrayLookup n){
+	Exp = "ArrayLookup";
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+	n.f3.accept(this);
+
+   }
+
+/*   public void visit(ArrayAllocationExpression n){
 	n.f0.accept(this);
 	n.f1.accept(this);
 	n.f2.accept(this);
 	n.f3.accept(this);
 	n.f4.accept(this);
-	enable_comp("int[]");
+	//enable_comp("int[]");
    }
+
+   public void visit(AllocationExpression n){
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+	n.f3.accept(this);
+   }
+*/
+
 
    public void visit(IntegerLiteral n){
 	n.f0.accept(this);
@@ -269,26 +381,11 @@ public class Typecheck extends DepthFirstVisitor{
 	enable_comp("boolean");
    }
 
-   public void visit(CompareExpression n){
-
-	Exp = "CompareExpression";
-	
-	
-	n.f0.accept(this);
-	n.f1.accept(this);
-	n.f2.accept(this);	
-   }
-
    /*public void visit(PrimaryExpression n){
 
 	n.f0.accept(this);
    }*/
 
-   public void visit(VarDeclaration n) {
-	n.f0.accept(this);
-	n.f1.accept(this);
-	n.f2.accept(this);
-   }
 
    public void visit(Type n) {
 	
