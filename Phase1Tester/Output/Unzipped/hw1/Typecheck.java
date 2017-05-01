@@ -24,6 +24,7 @@ public class Typecheck extends DepthFirstVisitor{
    public static String lhs = "";
    public static String rhs = "";
    public static boolean allow = false;
+   //public static boolean message = false;
 
    public void enable_comp(String a){ //enables comparision of 2 side of a conditional
 	if(allow && lhs == ""){
@@ -42,12 +43,13 @@ public class Typecheck extends DepthFirstVisitor{
 
    public void compare(){ // compare lhs and rhs of comparators
 	if(lhs == rhs){
-	    ExpType = lhs;
-	}else{
+	    //ExpType = lhs;
+	}//else if(Stat == "MessageSend"){}
+	else{
 	    //System.out.println(lhs);
 	    //System.out.println(rhs);
-	    System.out.println("Type Error");
-	    System.exit(0);
+	    System.out.println("Type error");
+	    System.exit(1);
 	}
    }
 
@@ -170,12 +172,12 @@ public class Typecheck extends DepthFirstVisitor{
 		
 		if(Type == "" && table.check4name(n.f0.toString())){
 		    System.out.print("Type error"); // duplicate name attempting to be used
-		    System.exit(0);
+		    System.exit(1);
 		}
 
 		if(Type == "" && !table.check4name(n.f0.toString())){
-		    System.out.print("Type error: undeclared variable"); // variable hasn't been declared
-		    System.exit(0);
+		    System.out.print("Type error"); // variable hasn't been declared
+		    System.exit(1);
 		}
 
 		if(Exp == "AndExpression"){ // PE && PE
@@ -202,8 +204,12 @@ public class Typecheck extends DepthFirstVisitor{
 		}
 
 		if(Stat == "AssignmentStatement"){ // ID = E;
+		 	if(!table.check4name(n.f0.toString())){  
+				System.out.println("Type error");
+				System.exit(1);
+			} 
 		    //enable_comp(table.getType(n.f0.toString()));
-		    AssnStatIdType = table.getType(n.f0.toString());
+		    /*AssnStatIdType = table.getType(n.f0.toString());
 		    //System.out.println(AssnStatIdType);
 		    Stat = "";
 		}else if(Stat == "ArrayAssignmentStatement"){
@@ -218,6 +224,7 @@ public class Typecheck extends DepthFirstVisitor{
 		    ExpType = table.getType(n.f0.toString());
 			
 		    //Exp = "";
+		    */
 		}
 
 	}
@@ -291,9 +298,10 @@ public class Typecheck extends DepthFirstVisitor{
 	Exp = "AndExpression";
 
 	n.f2.accept(this);
-
+	if(!firstpass){
 	compare();
 	reset();
+	}
 
    }
 
@@ -311,10 +319,12 @@ public class Typecheck extends DepthFirstVisitor{
 	
 	n.f2.accept(this);
 
+	if(!firstpass){
 	//System.out.println(lhs);
 	//System.out.println(rhs);
 	compare();
 	reset();
+	}
    }
 
    public void visit(PlusExpression n){
@@ -348,8 +358,11 @@ public class Typecheck extends DepthFirstVisitor{
 
 	n.f2.accept(this);
 
+	if(!firstpass){
+	//System.out.println("Minus");
 	compare();
 	reset();
+	}
 
    }
 
@@ -367,15 +380,18 @@ public class Typecheck extends DepthFirstVisitor{
 
 	n.f2.accept(this);
 	
+	if(!firstpass){
 	//System.out.println(lhs);
-	//System.out.println(rhs);
+	//System.out.println("Times");
 	compare();
-	if(Stat != "AssignmentStatement"){
-		reset();
+	//System.out.println("Times2");
+	//if(Stat != "AssignmentStatement"){
+	reset();
+        }
 
-	}else if(Stat == "AssignmentStatement"){
-		//ExpType = lhs;
-	}
+	//}else if(Stat == "AssignmentStatement"){
+	//	//ExpType = lhs;
+	//}
    }
 
    public void visit(ArrayLookup n){ // PE[PE] --> May need to make sure 2nd PE is int
@@ -420,7 +436,7 @@ public class Typecheck extends DepthFirstVisitor{
 
    }
 
-   public void visit(ArrayAssignmentStatement n){
+   /*public void visit(ArrayAssignmentStatement n){
 	Stat = "ArrayAssignmentStatement";
 
 	n.f0.accept(this);
@@ -429,7 +445,7 @@ public class Typecheck extends DepthFirstVisitor{
 	
 	if(ExpType != "int"){
 	    System.out.println("Type error");
-	    System.exit(0);
+	    System.exit(1);
 	}
 	
 	n.f3.accept(this);
@@ -443,12 +459,11 @@ public class Typecheck extends DepthFirstVisitor{
 
 	n.f6.accept(this);
 
-   }
+   }*/
 
    public void visit(MessageSend n){
 	
-	Stat = "MessageSend";
-	
+	Stat = "MessageSend";	
 	n.f0.accept(this);
 	n.f1.accept(this);
 	n.f2.accept(this); // go into Identifier visitor
@@ -478,21 +493,25 @@ public class Typecheck extends DepthFirstVisitor{
 
    public void visit(IntegerLiteral n){
 	n.f0.accept(this);
-	if(Stat == "AssignmentStatement"){
-	    ExpType = "int";
-	}
+	//if(Stat == "AssignmentStatement"){
+	//    ExpType = "int";
+	//}
 	//System.out.println(n.f0.toString());	
 	//enable_comp("int");
    }
 
    public void visit(TrueLiteral n){
 	n.f0.accept(this);
+	if(!firstpass){
 	enable_comp("boolean");
+	}
    }
 
    public void visit(FalseLiteral n){
 	n.f0.accept(this);
+	if(!firstpass){
 	enable_comp("boolean");
+	}
    }
 
    /*public void visit(PrimaryExpression n){

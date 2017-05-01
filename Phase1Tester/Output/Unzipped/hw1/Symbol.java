@@ -1,7 +1,7 @@
 /*
+ *Team Members: Aaron Sanders, Cristian Ibarra, Leon Penguin
  *
- *
- *
+ *Symbol.java
  *
  *
  */
