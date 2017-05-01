@@ -90,7 +90,7 @@ public class Typecheck extends DepthFirstVisitor{
 	n.f9.accept(this);
 	n.f10.accept(this);
 	
-	Type = n.f8.toString();
+	Type = "String[]";
 	
 	n.f11.accept(this);
 
@@ -120,12 +120,15 @@ public class Typecheck extends DepthFirstVisitor{
 		    sym.name = n.f0.toString();
     		    table.changes.add(sym);*/
 		    Type = "";
-		}else if(Type == "String"){
+		}else if(Type == "String[]"){
 		    table.add(n.f0.toString(), "String[]");
 		    /*sym.scope = scope; // record symbol table set change
 		    sym.type = "String[]";
 		    sym.name = n.f0.toString();
 		    table.changes.add(sym);*/
+		    Type = "";
+		}else if(Type == "String"){
+		    table.add(n.f0.toString(), Type);
 		    Type = "";
 		}else if(Type == "int[]"){
 		    table.add(n.f0.toString(), Type);
@@ -163,7 +166,7 @@ public class Typecheck extends DepthFirstVisitor{
 		}
 
 		if(Exp == "AndExpression"){
-		    //enable_comp(
+		    enable_comp(table.getType(n.f0.toString()));
 		}
 	}
    }
@@ -240,6 +243,15 @@ public class Typecheck extends DepthFirstVisitor{
 	compare();
 	reset();
 
+   }
+ 
+   public void visit(ArrayAllocationExpression n){
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+	n.f3.accept(this);
+	n.f4.accept(this);
+	enable_comp("int[]");
    }
 
    public void visit(IntegerLiteral n){
@@ -323,12 +335,9 @@ public class Typecheck extends DepthFirstVisitor{
 		firstpass = false;
 		n.visit(root); //second pass
 
-		table.printall();	
-		//System.out.print("\n");
-		//System.out.println(table.changes);
-		//System.out.println(scope);	
+		//table.printall();	
 
-		//System.out.println("Program type checked successfully");
+		System.out.println("Program type checked successfully");
 	} catch(Exception e){
 	 	e.printStackTrace();
 	}
