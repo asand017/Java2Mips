@@ -181,43 +181,44 @@ public class Typecheck extends DepthFirstVisitor{
 		if(Exp == "AndExpression"){ // PE && PE
 		    enable_comp(table.getType(n.f0.toString()));
 		    Exp = "";
-		}else if(Exp == "CompareExpression"){ // PE < PE
+		}
+		
+		if(Exp == "CompareExpression"){ // PE < PE
 		    enable_comp(table.getType(n.f0.toString()));
 		    Exp = "";
-		}else if(Exp == "PlusExpression"){ // PE + PE
-		    enable_comp(table.getType(n.f0.toString()));
-		    Exp = "";
-		}else if(Exp == "MinusExpression"){ // PE - PE
-		    enable_comp(table.getType(n.f0.toString()));
-		    Exp = "";
-		}else if(Exp == "TimesExpression"){ // PE * PE
-		    //if(Stat == "MessageSend"){
-			//enable_comp(table.getType(n.f0.toString()));		   	
-		   	//Stat = "";
-			//Exp = "";
-		    //}else{
-		    enable_comp(table.getType(n.f0.toString()));
-		    Exp = "";
-		    //}
 		}
 
-		if(Stat == "AssignmentStatement"){ // ID = E;
+		if(Exp == "PlusExpression"){ // PE + PE
+		    enable_comp(table.getType(n.f0.toString()));
+		    Exp = "";
+		}
+
+		if(Exp == "MinusExpression"){ // PE - PE
+		    enable_comp(table.getType(n.f0.toString()));
+		    Exp = "";
+		}
+
+		if(Exp == "TimesExpression"){ // PE * PE
+		    if(Stat == "MessageSend"){
+			enable_comp(table.getType(n.f0.toString()));		   	
+		   	Stat = "";
+			Exp = "";
+		    }else{
+		        enable_comp(table.getType(n.f0.toString()));
+		        Exp = "";
+		    }
+		}
+
+		if(Stat == "AssignmentStatement"){
 		    //enable_comp(table.getType(n.f0.toString()));
 		    AssnStatIdType = table.getType(n.f0.toString());
-		    //System.out.println(AssnStatIdType);
-		    Stat = "";
-		}else if(Stat == "ArrayAssignmentStatement"){
-		    AssnStatIdType = table.getType(n.f0.toString());
+		    System.out.println(AssnStatIdType);
 		    Stat = "";
 		}
 
-		if(Stat == "MessageSend"){
-		    enable_comp(table.getType(n.f0.toString()));
-		    //System.out.println("MessageSend");
+		if(Stat == "ArrayAssignmentStatement"){
+		    AssnStatIdType = table.getType(n.f0.toString());
 		    Stat = "";
-		    ExpType = table.getType(n.f0.toString());
-			
-		    //Exp = "";
 		}
 
 	}
@@ -373,8 +374,6 @@ public class Typecheck extends DepthFirstVisitor{
 	if(Stat != "AssignmentStatement"){
 		reset();
 
-	}else if(Stat == "AssignmentStatement"){
-		//ExpType = lhs;
 	}
    }
 
@@ -399,15 +398,6 @@ public class Typecheck extends DepthFirstVisitor{
 	Stat = "AssignmentStatement";
 	n.f2.accept(this);
 	n.f3.accept(this);
-
-	//if(!firstpass){//secondpass
-		//System.out.println(AssnStatIdType);
-		//System.out.println(ExpType);
-	//	if(AssnStatIdType != ExpType){
-	//	     System.out.println("Type error");
-	//	     System.exit(0);
-	//	}
-	//}
 
 	//if(AssnStatIdType != ExpType){ // lhs not same type as rhs
 	//    System.out.println("Type error");
@@ -448,10 +438,10 @@ public class Typecheck extends DepthFirstVisitor{
    public void visit(MessageSend n){
 	
 	Stat = "MessageSend";
-	
+
 	n.f0.accept(this);
 	n.f1.accept(this);
-	n.f2.accept(this); // go into Identifier visitor
+	n.f2.accept(this);
 	n.f3.accept(this);
 	n.f4.accept(this);
 	n.f5.accept(this);
@@ -478,11 +468,8 @@ public class Typecheck extends DepthFirstVisitor{
 
    public void visit(IntegerLiteral n){
 	n.f0.accept(this);
-	if(Stat == "AssignmentStatement"){
-	    ExpType = "int";
-	}
-	//System.out.println(n.f0.toString());	
-	//enable_comp("int");
+	//System.out.println("here");
+	enable_comp("int");
    }
 
    public void visit(TrueLiteral n){
