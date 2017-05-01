@@ -41,12 +41,20 @@ public class Typecheck extends DepthFirstVisitor{
 
    public void compare(){ // compare lhs and rhs of comparators
 	if(lhs == rhs){
-	    
+	    ExpType = lhs;
 	}else{
 	    System.out.println("Type Error");
 	    System.exit(0);
 	}
    }
+
+   // Variables specifically for Assignment Statement - Start
+   public static String AssnStatIdType = ""; //The type of the lhs identifier
+
+   public static String Stat = ""; //The currently active state
+
+   public static String ExpType = ""; //The type of the rhs expression
+   // End
 
    public static boolean firstpass = true;
 
@@ -189,6 +197,12 @@ public class Typecheck extends DepthFirstVisitor{
 		    enable_comp(table.getType(n.f0.toString()));
 		    Exp = "";
 		}
+
+		if(Stat == "AssignmentStatement"){
+		    AssnStatIdType = table.getType(n.f0.toString());
+		    Stat = "";
+		}
+
 	}
    }
 
@@ -338,13 +352,29 @@ public class Typecheck extends DepthFirstVisitor{
 
    }
 
-   public void visit(ArrayLookup n){
+   public void visit(ArrayLookup n){ // PE[PE] --> May need to make sure 2nd PE is int
 	Exp = "ArrayLookup";
 
 	n.f0.accept(this);
 	n.f1.accept(this);
 	n.f2.accept(this);
 	n.f3.accept(this);
+
+   }
+
+   public void visit(AssignmentStatement n){
+
+	Stat = "AssignmentStatement";	
+
+	n.f0.accept(this);
+	n.f1.accept(this);
+	n.f2.accept(this);
+	n.f3.accept(this);
+
+	if(AssnStatIdType != ExpType){ // lhs not same type as rhs
+	    System.out.println("Type error");
+	    System.exit(0);
+	}
 
    }
 
