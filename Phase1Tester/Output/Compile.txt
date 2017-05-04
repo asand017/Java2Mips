@@ -1,2 +1,0 @@
-Note: ./Output/Unzipped/hw1/Table.java uses unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
