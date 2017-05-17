@@ -18,20 +18,20 @@ public class J2V extends DepthFirstVisitor{
 	
 	public static String Main = "";
 
-	public class Method {
-		private String[] mthd;
+	public static class Method {
+		public String[] mthd;
 		public int size = 0;
 		public int index = 0;
 
-		public static void input(String block) {
+		public void input(String block) {
 			mthd[index] = block;
 			size++;
 			index++;
 		}
 		
-		public static void print_method() {
+		public void print_method() {
 			for(int i = 0; i < size; i++){
-				method[i]; //print or output to file
+				System.out.println(mthd[i]); //print or output to file
 				//newline between both methods
 			}
 		}
