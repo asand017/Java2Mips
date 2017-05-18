@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import syntaxtree.*;
 import visitor.*;
 
-public class J2V extends DepthFirstVisitor{
+public class J2V{
 
 	//do all the fun stuff here
 	
