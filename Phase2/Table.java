@@ -9,12 +9,10 @@ import java.util.*;
 
 class Table{
 	
-	public ArrayList changes = new ArrayList();
-
 	public Map table = new HashMap();
-	public Object add(String name, ArrayList<String> arrayList){
-		changes.add(name);		
-		return table.put(name, arrayList);
+	public Object add(String name, ArrayList<String> type_scope){
+		// type_scope --> (type, scope)
+		return table.put(name, type_scope); // (ident/name, (type, scope))
 	}
 
 	public Object delete(String name){
@@ -29,8 +27,8 @@ class Table{
 		return table.containsKey(name);
 	}
 
-	public boolean check4type(ArrayList<String> type){
-		return table.containsValue(type);
+	public boolean check4type(ArrayList<String> type_scope){
+		return table.containsValue(type_scope);
 	}
 	
 	public String getType(String name){
