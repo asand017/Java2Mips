@@ -8,11 +8,13 @@
  *
  */
 
+import java.util.*;
 import java.io.BufferedReader;
 import visitor.*;
 import syntaxtree.*;
 
 class PopSymbolTable extends DepthFirstVisitor{
+	public static ArrayList<String> sym_scope = new ArrayList();
 	
 	public static Table table = new Table();
 
@@ -59,6 +61,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f17.accept(this);
 
 		scope = scope - 1;
+	
+		System.out.println("cake");
+
 	}
 
 	public void start(BufferedReader in){
