@@ -43,9 +43,9 @@ public class J2V{
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			//reading in from console input
 
-			MiniJavaParser parser = new MiniJavaParser(in);
+			PopSymbolTable populate = new PopSymbolTable();
+			populate.start(in);
 
-			Goal root = parser.Goal();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
