@@ -42,7 +42,7 @@ public class J2V{
 		try{
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			//reading in from console input
-
+		
 			PopSymbolTable populate = new PopSymbolTable();
 			populate.start(in);
 

@@ -14,30 +14,41 @@ import visitor.*;
 import syntaxtree.*;
 
 class PopSymbolTable extends DepthFirstVisitor{
-	public static ArrayList<String> sym_scope = new ArrayList();
+	//public static ArrayList<String> type_scope = new ArrayList<String>(); // (type, scope)
 	
 	public static Table table = new Table();
 
 	public static String Type = "";
 
+	public static String ident = "";
+
 	public int scope = 0;
 
 	public void visit(MainClass n){
-
-		Type = n.f0.toString();
 		
+		ArrayList<String> type_scope = new ArrayList<String>();
+		Type = n.f0.toString();
+		type_scope.add(Type);
+		type_scope.add(Integer.toString(scope));
+	
 		n.f0.accept(this);
 		n.f1.accept(this);
 		n.f2.accept(this);
+
+		table.add(ident, type_scope);
 		
 		scope = scope + 1;
 
 		n.f3.accept(this);
 		n.f4.accept(this);
-		n.f5.accept(this);
-		n.f6.accept(this);
-
-		table.add(n.f5.toString(), n.f6.toString());
+		n.f5.accept(this); //void
+		n.f6.accept(this); //main
+   
+		ArrayList<String> type_scope1 = new ArrayList<String>();
+		Type = n.f5.toString();
+		type_scope1.add(Type);
+		type_scope1.add(Integer.toString(scope));
+		table.add(n.f6.toString(), type_scope1);
 
 		n.f7.accept(this);
 		n.f8.accept(this);
@@ -51,6 +62,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f13.accept(this);
 
 		scope = scope + 1;
+		ArrayList<String> type_scope2 = new ArrayList<String>();
+		type_scope2.add(Type);
+		type_scope2.add(Integer.toString(scope));
+		table.add(ident, type_scope2);
 
 		n.f14.accept(this);
 		n.f15.accept(this);		
@@ -62,8 +77,14 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		scope = scope - 1;
 	
-		System.out.println("cake");
-
+	}
+	
+	public void visit(Identifier n){
+		if(Type == "class"){
+			ident = n.f0.toString(); //store identifier name in ident
+		}else if(Type == "String[]"){
+			ident = n.f0.toString();
+		}
 	}
 
 	public void start(BufferedReader in){
@@ -72,6 +93,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 			MiniJavaParser parser = new MiniJavaParser(in);
 
 	    	Goal root = parser.Goal();
+			PopSymbolTable n = new PopSymbolTable();
+			n.visit(root);
+
+			table.printall();
 
 		} catch(Exception e){
 			e.printStackTrace();
