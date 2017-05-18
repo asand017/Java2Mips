@@ -9,11 +9,9 @@ import java.util.*;
 
 class Table{
 	
-	public ArrayList changes = new ArrayList(); // (type, scope)
-
 	public Map table = new HashMap();
 	public Object add(String name, ArrayList<String> type_scope){
-		changes.add(name);		
+		// type_scope --> (type, scope)
 		return table.put(name, type_scope); // (ident/name, (type, scope))
 	}
 
