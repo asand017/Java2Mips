@@ -12,9 +12,9 @@ class Table{
 	public ArrayList changes = new ArrayList();
 
 	public Map table = new HashMap();
-	public Object add(String name, String type){
+	public Object add(String name, ArrayList<String> arrayList){
 		changes.add(name);		
-		return table.put(name, type);
+		return table.put(name, arrayList);
 	}
 
 	public Object delete(String name){
@@ -29,7 +29,7 @@ class Table{
 		return table.containsKey(name);
 	}
 
-	public boolean check4type(String type){
+	public boolean check4type(ArrayList<String> type){
 		return table.containsValue(type);
 	}
 	
