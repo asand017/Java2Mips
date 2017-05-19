@@ -24,19 +24,23 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 	public int scope = 0;
 
+    public void addToSymT(String name, String type, String Scope){
+	    ArrayList<String> type_scope = new ArrayList<String>();
+		type_scope.add(type);
+		type_scope.add(Scope);
+		table.add(name, type_scope);
+	}
+
 	public void visit(MainClass n){
 		
-		ArrayList<String> type_scope = new ArrayList<String>();
 		Type = n.f0.toString();
-		type_scope.add(Type);
-		type_scope.add(Integer.toString(scope));
 	
 		n.f0.accept(this);
 		n.f1.accept(this);
 		n.f2.accept(this);
 
-		table.add(ident, type_scope);
-		
+		addToSymT(ident, Type, Integer.toString(scope));
+
 		scope = scope + 1;
 
 		n.f3.accept(this);
@@ -44,11 +48,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f5.accept(this); //void
 		n.f6.accept(this); //main
    
-		ArrayList<String> type_scope1 = new ArrayList<String>();
 		Type = n.f5.toString();
-		type_scope1.add(Type);
-		type_scope1.add(Integer.toString(scope));
-		table.add(n.f6.toString(), type_scope1);
+
+		addToSymT(n.f6.toString(), Type, Integer.toString(scope));
 
 		n.f7.accept(this);
 		n.f8.accept(this);
@@ -62,10 +64,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f13.accept(this);
 
 		scope = scope + 1;
-		ArrayList<String> type_scope2 = new ArrayList<String>();
-		type_scope2.add(Type);
-		type_scope2.add(Integer.toString(scope));
-		table.add(ident, type_scope2);
+
+		addToSymT(ident, Type, Integer.toString(scope));
 
 		n.f14.accept(this);
 		n.f15.accept(this);		
@@ -80,11 +80,57 @@ class PopSymbolTable extends DepthFirstVisitor{
 	}
 	
 	public void visit(Identifier n){
+
+		n.f0.accept(this);
+
+		//ident = n.f0.toString();
+
 		if(Type == "class"){
 			ident = n.f0.toString(); //store identifier name in ident
 		}else if(Type == "String[]"){
 			ident = n.f0.toString();
+		}else if(Type == "int[]"){
+			ident = n.f0.toString();
+		}else if(Type == "boolean"){
+			ident = n.f0.toString();
+		}else if(Type == "int"){
+			ident = n.f0.toString();
+		}else if(Type == ""){
+			Type = n.f0.toString();
+		}else{
+			ident = n.f0.toString();
 		}
+	}
+
+	public void visit(VarDeclaration n){
+		n.f0.accept(this); // Type()
+		n.f1.accept(this); // Identifier()
+		n.f2.accept(this); // ;
+
+		addToSymT(ident, Type, Integer.toString(scope));
+		Type = "";
+		ident = "";
+	}
+
+	public void visit(ArrayType n){
+
+		Type = "int[]";	
+
+		n.f0.accept(this);
+		n.f1.accept(this);
+		n.f2.accept(this);
+    }
+	
+	public void visit(BooleanType n){
+		Type = "boolean";
+	
+		n.f0.accept(this);
+	}
+
+	public void visit(IntegerType n){
+		Type = "int";
+		
+		n.f0.accept(this);
 	}
 
 	public void start(BufferedReader in){
