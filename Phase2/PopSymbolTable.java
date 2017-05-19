@@ -73,7 +73,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f10.accept(this);
 		
 		Type = "String[]";
-		
+		//Type = "local variable";		
+
 		n.f11.accept(this);
 		n.f12.accept(this);
 		n.f13.accept(this);
@@ -108,10 +109,13 @@ class PopSymbolTable extends DepthFirstVisitor{
 			ident = n.f0.toString();
 		}else if(Type == "int"){
 			ident = n.f0.toString();
-		}else if(Type == "method"){
+		}/*else if(Type == "local variable"){
+			ident = n.f0.toString();
+		}*/else if(Type == "method"){
 			ident = n.f0.toString();
 		}else if(Type == ""){
 			Type = n.f0.toString();
+			//Type = "local variable";
 		}else{
 			ident = n.f0.toString();
 		}
@@ -129,6 +133,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		Type = "int[]";	
 
+		//Type = "local variable";
+
 		n.f0.accept(this);
 		n.f1.accept(this);
 		n.f2.accept(this);
@@ -137,16 +143,17 @@ class PopSymbolTable extends DepthFirstVisitor{
 	public void visit(BooleanType n){
 		Type = "boolean";
 	
+		//Type = "local variable";
+
 		n.f0.accept(this);
 	}
 
 	
 	public void visit(IntegerType n){
-		//if(Type == "public"){
-		//	Type = Type + " int";
-		//}else{
+		
 		Type = "int";
-		//}
+		
+		//Type = "local variable";
 
 		n.f0.accept(this);
 	}
