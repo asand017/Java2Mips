@@ -133,6 +133,51 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f0.accept(this);
 	}
 
+	public void visit(ClassDeclaration n){
+		n.f0.accept(this); // class
+
+		Type = "class";
+
+		n.f1.accept(this); // identifier()
+		n.f2.accept(this); // {
+
+		addToSymT(ident, Type, Integer.toString(scope));
+		Type = "";
+		ident = "";
+
+		scope = scope + 1;
+		n.f3.accept(this); // (VarDeclaration())*
+		n.f4.accept(this); // (MethodDeclaration())*
+		n.f5.accept(this); // }
+
+
+		scope = scope - 1;
+	}
+
+	public void visit(ClassExtendsDeclaration n){
+		n.f0.accept(this); // "class"
+	
+		Type = "class";
+	
+		n.f1.accept(this); // Identifier()
+
+		addToSymT(ident, Type, Integer.toString(scope));
+		Type = "";
+		ident = "";
+	
+		n.f2.accept(this); // "extends"
+		n.f3.accept(this); // Identifier()
+		n.f4.accept(this); // "{"
+
+		scope = scope + 1;
+
+		n.f5.accept(this); // (VarDeclaration() )*
+		n.f6.accept(this); // (MethodDeclaration() )*
+		n.f7.accept(this); // "}"
+		
+		scope = scope - 1;
+	}
+
 	public void start(BufferedReader in){
 		try{
 
