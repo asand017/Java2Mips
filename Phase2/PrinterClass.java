@@ -1,10 +1,13 @@
-/*
+/* 
+ * Team Members: Aaron Sanders, Crisitian Ibarra, Leon Peng
  *
+ * PrinterClass.java
  *
+ * Prints translations into vapor file
  *
  */
 
-class Printer() {
+class PrinterClass {
 	int scope;
 	
 	//Left Bracket
