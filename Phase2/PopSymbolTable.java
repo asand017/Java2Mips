@@ -29,6 +29,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		type_scope.add(type);
 		type_scope.add(Scope);
 		table.add(name, type_scope);
+		Type = ""; //reset Type var
+		ident = ""; //reset identifier var
 	}
 
 	public void visit(MainClass n){
@@ -83,8 +85,6 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		n.f0.accept(this);
 
-		//ident = n.f0.toString();
-
 		if(Type == "class"){
 			ident = n.f0.toString(); //store identifier name in ident
 		}else if(Type == "String[]"){
@@ -94,6 +94,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		}else if(Type == "boolean"){
 			ident = n.f0.toString();
 		}else if(Type == "int"){
+			ident = n.f0.toString();
+		}else if(Type == "public int"){
 			ident = n.f0.toString();
 		}else if(Type == ""){
 			Type = n.f0.toString();
@@ -108,8 +110,6 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f2.accept(this); // ;
 
 		addToSymT(ident, Type, Integer.toString(scope));
-		Type = "";
-		ident = "";
 	}
 
 	public void visit(ArrayType n){
@@ -127,9 +127,14 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f0.accept(this);
 	}
 
+	
 	public void visit(IntegerType n){
-		Type = "int";
-		
+		if(Type == "public"){
+			Type = Type + " int";
+		}else{
+			Type = "int";
+		}
+
 		n.f0.accept(this);
 	}
 
@@ -142,8 +147,6 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f2.accept(this); // {
 
 		addToSymT(ident, Type, Integer.toString(scope));
-		Type = "";
-		ident = "";
 
 		scope = scope + 1;
 		n.f3.accept(this); // (VarDeclaration())*
@@ -162,8 +165,6 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this); // Identifier()
 
 		addToSymT(ident, Type, Integer.toString(scope));
-		Type = "";
-		ident = "";
 	
 		n.f2.accept(this); // "extends"
 		n.f3.accept(this); // Identifier()
@@ -176,6 +177,40 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f7.accept(this); // "}"
 		
 		scope = scope - 1;
+	}
+
+	public void visit(MethodDeclaration n){//More work to be done later
+		n.f0.accept(this); // "public"
+
+		Type = "public";
+	
+		n.f1.accept(this); // Type()
+		n.f2.accept(this); // Identifier()
+
+		addToSymT(ident, Type, Integer.toString(scope));
+	
+		n.f3.accept(this); // "("
+
+		scope = scope + 1;	
+
+		n.f4.accept(this); // ( FormalParameterList() )?
+		n.f5.accept(this); // ")"
+		n.f6.accept(this); // "{"
+		n.f7.accept(this); // (VarDeclaration() )*
+		n.f8.accept(this); // (Statment() )*
+		n.f9.accept(this); // "return"
+		n.f10.accept(this);// Expression()
+		n.f11.accept(this);// ";"
+		n.f12.accept(this);// }
+
+		scope = scope - 1;
+	}
+
+	public void visit(FormalParameter n){
+		n.f0.accept(this);
+		n.f1.accept(this);
+
+		addToSymT(ident, Type, Integer.toString(scope));
 	}
 
 	public void start(BufferedReader in){
