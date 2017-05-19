@@ -22,6 +22,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 	public static String ident = "";
 
+	public static String curr_class = ""; //current class for "this" keyword
+
 	public int scope = 0;
 
     public void addToSymT(String name, String type, String Scope){
@@ -39,6 +41,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 		n.f0.accept(this);
 		n.f1.accept(this);
+
+		curr_class = ident;
+	
 		n.f2.accept(this);
 
 		addToSymT(ident, Type, Integer.toString(scope));
@@ -146,6 +151,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this); // identifier()
 		n.f2.accept(this); // {
 
+		curr_class = ident;
+
 		addToSymT(ident, Type, Integer.toString(scope));
 
 		scope = scope + 1;
@@ -164,6 +171,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 		n.f1.accept(this); // Identifier()
 
+		curr_class = ident;
 		addToSymT(ident, Type, Integer.toString(scope));
 	
 		n.f2.accept(this); // "extends"
@@ -211,6 +219,12 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this);
 
 		addToSymT(ident, Type, Integer.toString(scope));
+	}
+
+	public void visit(ThisExpression n){
+		n.f0.accept(this);
+	
+		addToSymT(n.f0.toString(), curr_class, Integer.toString(scope));	
 	}
 
 	public void start(BufferedReader in){
