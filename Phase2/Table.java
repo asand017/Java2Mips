@@ -1,8 +1,9 @@
-/*
+/* 
+ * Team Members: Aaron Sanders, Crisitian Ibarra, Leon Peng
  *
+ * Table.java
  *
- *
- *
+ * Symbol Table
  *
  */
 import java.util.*;
@@ -42,6 +43,14 @@ class Table{
 			return false;
 
 		}
+	}
+
+	public String getScope(String name){//get scope of an identifier
+		
+		ArrayList<String> temp = (ArrayList<String>) table.get(name);
+		
+		return  temp.get(1);
+		
 	}
 
 }

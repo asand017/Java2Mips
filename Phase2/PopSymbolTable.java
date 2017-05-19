@@ -18,6 +18,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 	public static Table table = new Table();
 
+	public static Map ClassRecord = new HashMap(); // Class Record
+
 	public static String Type = "";
 
 	public static String ident = "";
@@ -25,6 +27,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 	public static String curr_class = ""; //current class for "this" keyword
 
 	public int scope = 0;
+	
+	public int index = 0; //starting index for Class Record to be incremented
+	public int offset = 0;
 
     public void addToSymT(String name, String type, String Scope){
 	    ArrayList<String> type_scope = new ArrayList<String>();
@@ -42,7 +47,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f0.accept(this);
 		n.f1.accept(this);
 
-		curr_class = ident;
+		curr_class = ident; //to know which object 'this' keyword refers to
+
+		ClassRecord.put(ident, Integer.toString(index));
+		index++; //increment index
 	
 		n.f2.accept(this);
 
@@ -55,7 +63,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f5.accept(this); //void
 		n.f6.accept(this); //main
    
-		Type = n.f5.toString();
+		Type = "method";//n.f5.toString();
 
 		addToSymT(n.f6.toString(), Type, Integer.toString(scope));
 
@@ -100,7 +108,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 			ident = n.f0.toString();
 		}else if(Type == "int"){
 			ident = n.f0.toString();
-		}else if(Type == "public int"){
+		}else if(Type == "method"){
 			ident = n.f0.toString();
 		}else if(Type == ""){
 			Type = n.f0.toString();
@@ -134,11 +142,11 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 	
 	public void visit(IntegerType n){
-		if(Type == "public"){
-			Type = Type + " int";
-		}else{
-			Type = "int";
-		}
+		//if(Type == "public"){
+		//	Type = Type + " int";
+		//}else{
+		Type = "int";
+		//}
 
 		n.f0.accept(this);
 	}
@@ -190,11 +198,13 @@ class PopSymbolTable extends DepthFirstVisitor{
 	public void visit(MethodDeclaration n){//More work to be done later
 		n.f0.accept(this); // "public"
 
-		Type = "public";
+		//Type = "public";
 	
 		n.f1.accept(this); // Type()
 		n.f2.accept(this); // Identifier()
 
+		//System.out.println(Type);
+		Type = "method";
 		addToSymT(ident, Type, Integer.toString(scope));
 	
 		n.f3.accept(this); // "("
@@ -223,8 +233,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 	public void visit(ThisExpression n){
 		n.f0.accept(this);
-	
-		addToSymT(n.f0.toString(), curr_class, Integer.toString(scope));	
+
+		//table.getScope(curr_class);	
+		addToSymT(n.f0.toString(), curr_class, table.getScope(curr_class)); //Integer.toString(scope));	
 	}
 
 	public void start(BufferedReader in){
