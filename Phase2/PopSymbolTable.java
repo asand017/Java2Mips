@@ -166,6 +166,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this); // identifier()
 		n.f2.accept(this); // {
 
+		ClassRecord.put(ident, index);
+		index++;
+
 		curr_class = ident;
 
 		addToSymT(ident, Type, Integer.toString(scope));
@@ -185,6 +188,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 		Type = "class";
 	
 		n.f1.accept(this); // Identifier()
+
+		ClassRecord.put(ident, index);
+		index++;
 
 		curr_class = ident;
 		addToSymT(ident, Type, Integer.toString(scope));
@@ -254,7 +260,12 @@ class PopSymbolTable extends DepthFirstVisitor{
 			PopSymbolTable n = new PopSymbolTable();
 			n.visit(root);
 
+			System.out.print("Symbol Table: ");
 			table.printall();
+	
+			System.out.print("\n" + "\n");			
+
+			System.out.println("Class Record: " + ClassRecord);
 
 		} catch(Exception e){
 			e.printStackTrace();
