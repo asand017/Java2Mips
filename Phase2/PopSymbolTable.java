@@ -34,11 +34,22 @@ class PopSymbolTable extends DepthFirstVisitor{
 	//public int offset = 0;
 
 	public void addToAllVtable(VTable x){
-		VTable vtable = new VTable(); 
-		all_vtables.add(vtable);
+		//VTable vtable = new VTable(); 
+		all_vtables.add(x);
 		VTable temp = all_vtables.get(0);
 		System.out.println(temp.getClassName());
+		//vtable = new VTable();
 		//System.out.println(vtable.getClassName());
+	}
+
+	public void printAllVtable(){
+		//System.out.println(all_vtables.get(0).getClassName());
+		///System.out.println(all_vtables.get(1).getClassName());
+		for(int i = 0; i < all_vtables.size(); i++){
+			VTable temp = all_vtables.get(i);
+			System.out.print("class name: " + temp.getClassName() + " -> methods: ");
+			all_vtables.get(i).printVtable();
+		}
 	}
 
     public void addToSymT(String name, String type, String Scope){
@@ -71,6 +82,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 		n.f2.accept(this);
 
+		vtable.setClass(curr_class);
+
 		addToSymT(ident, Type, Integer.toString(scope));
 
 		scope = scope + 1;
@@ -81,8 +94,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f6.accept(this); //main
    
 		Type = "method";//n.f5.toString();
-	
-		vtable.add(n.f6.toString()); // add main to vtable for primary class
+		
+		//vtable.setClass(ident);	
+		vtable.add("main"); // add main to vtable for primary class
 
 		addToSymT(n.f6.toString(), Type, Integer.toString(scope));
 
@@ -188,6 +202,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this); // identifier()
 		n.f2.accept(this); // {
 
+		vtable = new VTable();
+
 		classRecord.add(ident);
 
 		//ClassRecord.put(ident, index);
@@ -223,6 +239,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		curr_class = ident;
 		addToSymT(ident, Type, Integer.toString(scope));
+
+		vtable = new VTable();
 	
 		n.f2.accept(this); // "extends"
 		n.f3.accept(this); // Identifier()
@@ -307,8 +325,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 			System.out.println();	
 
-			System.out.print("vtable: ");
-			vtable.printVtable();
+			//System.out.print("vtable: ");
+			//vtable.printVtable();
+			printAllVtable();
 			System.out.println();
 			
 			//System.out.println(all_vtables.get(0).getClassName());//printVtable();

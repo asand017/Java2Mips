@@ -21,5 +21,9 @@ class ClassRecord {
 	public void printRecord(){
 		System.out.println(classRecord);
 	}
+
+	public int recordSize(){
+		return classRecord.size();
+	}
 	 
 }
