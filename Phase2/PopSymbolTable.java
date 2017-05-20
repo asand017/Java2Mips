@@ -15,6 +15,8 @@ import syntaxtree.*;
 
 class PopSymbolTable extends DepthFirstVisitor{
 	public static ArrayList<VTable> all_vtables = new ArrayList<VTable>(); // holds all the vtables
+
+	public static ArrayList<String> methods_list = new ArrayList<String>();
 	
 	public static Table table = new Table();
 
@@ -33,7 +35,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 	//public int index = 0; //starting index for Class Record to be incremented
 	//public int offset = 0;
 
-	public void addToAllVtable(VTable x){
+	public void addToAllVtable(String class_name, ArrayList<String> methods){
 		//VTable vtable = new VTable(); 
 		all_vtables.add(x);
 		VTable temp = all_vtables.get(0);
@@ -46,10 +48,15 @@ class PopSymbolTable extends DepthFirstVisitor{
 		//System.out.println(all_vtables.get(0).getClassName());
 		///System.out.println(all_vtables.get(1).getClassName());
 		for(int i = 0; i < classRecord.recordSize(); i++){
-			
-			VTable temp = all_vtables.get(i);
-			System.out.print("class name: " + temp.getClassName() + " -> methods: ");
-			all_vtables.get(i).printVtable();
+			String temp_class = classRecord.getName(i);
+			for(int j = 0; j < all_vtables.size(); j++){	
+				if(temp_class == all_vtables.get(j).getClassName()){
+					VTable temp = all_vtables.get(j);
+					System.out.print("class name: " + temp_class + " -> methods: ");
+					temp.printVtable();
+					//all_vtables.get(i).printVtable();
+				}
+			}
 		}
 	}
 
@@ -83,7 +90,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 		n.f2.accept(this);
 
-		vtable.setClass(curr_class);
+		//vtable.setClass(curr_class);
 
 		addToSymT(ident, Type, Integer.toString(scope));
 
@@ -205,6 +212,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		vtable = new VTable();
 
+		vtable.setClass(ident);
+
 		classRecord.add(ident);
 
 		//ClassRecord.put(ident, index);
@@ -242,6 +251,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 		addToSymT(ident, Type, Integer.toString(scope));
 
 		vtable = new VTable();
+		vtable.setClass(ident);
 	
 		n.f2.accept(this); // "extends"
 		n.f3.accept(this); // Identifier()
@@ -267,9 +277,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this); // Type()
 		n.f2.accept(this); // Identifier()
 	
-		vtable.setClass(curr_class); // connect to parent class
-		vtable.add(ident); // add method name
-
+		//vtable.setClass(curr_class); // connect to parent class
+		//vtable.add(ident); // add method name
+		
+	
 		//System.out.println(Type);
 		Type = "method";
 		addToSymT(ident, Type, Integer.toString(scope));
