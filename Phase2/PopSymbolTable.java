@@ -14,11 +14,9 @@ import visitor.*;
 import syntaxtree.*;
 
 class PopSymbolTable extends DepthFirstVisitor{
-	//public static ArrayList<String> type_scope = new ArrayList<String>(); // (type, scope)
+	public static ArrayList<VTable> all_vtables = new ArrayList<VTable>(); // holds all the vtables
 	
 	public static Table table = new Table();
-
-	public static Map class_ref = new HashMap();
 
 	public VTable vtable = new VTable(); //Vtable	
 
@@ -35,6 +33,11 @@ class PopSymbolTable extends DepthFirstVisitor{
 	//public int index = 0; //starting index for Class Record to be incremented
 	//public int offset = 0;
 
+	public void addToAllVtable(VTable x){
+		VTable vtable = new VTable(); 
+		all_vtables.add(vtable);
+	}
+
     public void addToSymT(String name, String type, String Scope){
 	    ArrayList<String> type_scope = new ArrayList<String>();
 		type_scope.add(type);
@@ -50,6 +53,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 		n.f0.accept(this);
 		n.f1.accept(this);
+	
+		vtable.setClass(ident);
+		
 
 		curr_class = ident; //to know which object 'this' keyword refers to
 
@@ -72,6 +78,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f6.accept(this); //main
    
 		Type = "method";//n.f5.toString();
+	
+		vtable.add(n.f6.toString()); // add main to vtable for primary class
 
 		addToSymT(n.f6.toString(), Type, Integer.toString(scope));
 
@@ -215,6 +223,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		n.f5.accept(this); // (VarDeclaration() )*
 		n.f6.accept(this); // (MethodDeclaration() )*
+
+			
+
 		n.f7.accept(this); // "}"
 		
 		scope = scope - 1;
@@ -227,6 +238,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 		n.f1.accept(this); // Type()
 		n.f2.accept(this); // Identifier()
+	
+		vtable.setClass(curr_class); // connect to parent class
+		vtable.add(ident); // add method name
 
 		//System.out.println(Type);
 		Type = "method";
@@ -272,14 +286,21 @@ class PopSymbolTable extends DepthFirstVisitor{
 			PopSymbolTable n = new PopSymbolTable();
 			n.visit(root);
 
+			System.out.println();
+
 			System.out.print("Symbol Table: ");
 			table.printall();
 	
 			System.out.print("\n" + "\n");			
 
+			System.out.print("Class Record: ");
 			classRecord.printRecord();
 
-			//System.out.println("Class Record: " + ClassRecord);
+			System.out.println();	
+
+			System.out.print("vtable: ");
+			vtable.printVtable();
+			System.out.println();
 
 		} catch(Exception e){
 			e.printStackTrace();
