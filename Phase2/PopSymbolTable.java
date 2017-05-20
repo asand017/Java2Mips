@@ -18,7 +18,11 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 	public static Table table = new Table();
 
-	//public static Map ClassRecord = new HashMap(); // Class Record
+	public static Map class_ref = new HashMap();
+
+	public VTable vtable = new VTable(); //Vtable	
+
+	public static ClassRecord classRecord = new ClassRecord(); //ClassRecord
 
 	public static String Type = "";
 

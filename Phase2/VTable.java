@@ -12,4 +12,8 @@ class VTable{
 	public void add(String method){
 		vtable.add(method);
 	}
+		
+	public void printVtable(){
+		System.out.println(vtable);
+	}
 }
