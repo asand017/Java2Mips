@@ -36,16 +36,16 @@ class PopSymbolTable extends DepthFirstVisitor{
 	//public int offset = 0;
 
 	public void addToAllVtable(String class_name, ArrayList<String> methods){
-		VTable vtable = new VTable(); 
-		vtable.setClass(class_name);
+		VTable vtables = new VTable(); 
+		vtables.vtable_class = class_name;
 		
 		for(int i = 0; i < methods.size(); i++){
-			vtable.add(methods.get(i));
+			vtables.vtable.add(methods.get(i));
 		}		
 
-		all_vtables.add(vtable);
+		all_vtables.add(vtables);
 		VTable temp = all_vtables.get(0);
-		//System.out.println(temp.getClassName());
+		System.out.println(temp.getClassName());
 	}
 
 	public void printAllVtable(){
