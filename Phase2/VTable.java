@@ -20,6 +20,12 @@ class VTable{
 		vtable.add(method);
 	}	
 
+	/*public void printClassVTable(String class_name){
+		for(int i = 0; i < vtable.size(); i++){
+			//if(vtable.get(i)
+		}
+	}*/
+
 	public String getClassName(){
 		return vtable_class;
 	}
