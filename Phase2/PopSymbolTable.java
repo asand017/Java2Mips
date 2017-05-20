@@ -36,15 +36,21 @@ class PopSymbolTable extends DepthFirstVisitor{
 	//public int offset = 0;
 
 	public void addToAllVtable(String class_name, ArrayList<String> methods){
-		//VTable vtable = new VTable(); 
-		all_vtables.add(x);
+		VTable vtable = new VTable(); 
+		vtable.setClass(class_name);
+		
+		for(int i = 0; i < methods.size(); i++){
+			vtable.add(methods.get(i));
+		}		
+
+		all_vtables.add(vtable);
 		VTable temp = all_vtables.get(0);
 		System.out.println(temp.getClassName());
 		//vtable = new VTable();
 		//System.out.println(vtable.getClassName());
 	}
 
-	public void printAllVtable(){
+	/*public void printAllVtable(){
 		//System.out.println(all_vtables.get(0).getClassName());
 		///System.out.println(all_vtables.get(1).getClassName());
 		for(int i = 0; i < classRecord.recordSize(); i++){
@@ -58,7 +64,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 				}
 			}
 		}
-	}
+	}*/
 
     public void addToSymT(String name, String type, String Scope){
 	    ArrayList<String> type_scope = new ArrayList<String>();
@@ -113,6 +119,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f9.accept(this);
 		n.f10.accept(this);
 		
+		methods_list.add("main");
+
 		Type = "String[]";
 		//Type = "local variable";		
 
@@ -127,7 +135,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f14.accept(this);
 		n.f15.accept(this);
 
-		addToAllVtable(vtable);
+		addToAllVtable(curr_class, methods_list);
 		
 		n.f16.accept(this);
 	
@@ -227,10 +235,11 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f3.accept(this); // (VarDeclaration())*
 		n.f4.accept(this); // (MethodDeclaration())*
 
-		addToAllVtable(vtable);
+		addToAllVtable(curr_class, methods_list);
 	
 		n.f5.accept(this); // }
 
+		methods_list.clear();
 
 		scope = scope - 1;
 	}
@@ -262,10 +271,12 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f5.accept(this); // (VarDeclaration() )*
 		n.f6.accept(this); // (MethodDeclaration() )*
 
-		addToAllVtable(vtable);		
+		addToAllVtable(curr_class, methods_list);		
 
 		n.f7.accept(this); // "}"
-		
+
+		methods_list.clear();		
+
 		scope = scope - 1;
 	}
 
@@ -280,7 +291,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 		//vtable.setClass(curr_class); // connect to parent class
 		//vtable.add(ident); // add method name
 		
-	
+		methods_list.add(ident);
 		//System.out.println(Type);
 		Type = "method";
 		addToSymT(ident, Type, Integer.toString(scope));
@@ -339,8 +350,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 			//System.out.print("vtable: ");
 			//vtable.printVtable();
-			printAllVtable();
-			System.out.println();
+			//printAllVtable();
+			//System.out.println();
 			
 			//System.out.println(all_vtables.get(0).getClassName());//printVtable();
 
