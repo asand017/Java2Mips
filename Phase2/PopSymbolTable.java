@@ -18,7 +18,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 	public static Table table = new Table();
 
-	public static Map ClassRecord = new HashMap(); // Class Record
+	//public static Map ClassRecord = new HashMap(); // Class Record
 
 	public static String Type = "";
 
@@ -28,8 +28,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 	public int scope = 0;
 	
-	public int index = 0; //starting index for Class Record to be incremented
-	public int offset = 0;
+	//public int index = 0; //starting index for Class Record to be incremented
+	//public int offset = 0;
 
     public void addToSymT(String name, String type, String Scope){
 	    ArrayList<String> type_scope = new ArrayList<String>();
@@ -49,8 +49,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		curr_class = ident; //to know which object 'this' keyword refers to
 
-		ClassRecord.put(ident, Integer.toString(index));
-		index++; //increment index
+		//ClassRecord.put(ident, Integer.toString(index));
+		//index++; //increment index
 	
 		n.f2.accept(this);
 
@@ -166,8 +166,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this); // identifier()
 		n.f2.accept(this); // {
 
-		ClassRecord.put(ident, index);
-		index++;
+		//ClassRecord.put(ident, index);
+		//index++;
 
 		curr_class = ident;
 
@@ -189,8 +189,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 		n.f1.accept(this); // Identifier()
 
-		ClassRecord.put(ident, index);
-		index++;
+		//ClassRecord.put(ident, index);
+		//index++;
 
 		curr_class = ident;
 		addToSymT(ident, Type, Integer.toString(scope));
@@ -263,9 +263,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 			System.out.print("Symbol Table: ");
 			table.printall();
 	
-			System.out.print("\n" + "\n");			
+			//System.out.print("\n" + "\n");			
 
-			System.out.println("Class Record: " + ClassRecord);
+			//System.out.println("Class Record: " + ClassRecord);
 
 		} catch(Exception e){
 			e.printStackTrace();
