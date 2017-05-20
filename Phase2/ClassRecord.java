@@ -22,6 +22,10 @@ class ClassRecord {
 		System.out.println(classRecord);
 	}
 
+	public String getName(int index){
+		return classRecord.get(index);
+	}
+
 	public int recordSize(){
 		return classRecord.size();
 	}

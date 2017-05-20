@@ -45,7 +45,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 	public void printAllVtable(){
 		//System.out.println(all_vtables.get(0).getClassName());
 		///System.out.println(all_vtables.get(1).getClassName());
-		for(int i = 0; i < all_vtables.size(); i++){
+		for(int i = 0; i < classRecord.recordSize(); i++){
+			
 			VTable temp = all_vtables.get(i);
 			System.out.print("class name: " + temp.getClassName() + " -> methods: ");
 			all_vtables.get(i).printVtable();
