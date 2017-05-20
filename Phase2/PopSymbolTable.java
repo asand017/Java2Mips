@@ -53,6 +53,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		curr_class = ident; //to know which object 'this' keyword refers to
 
+		classRecord.add(ident);
+
+		//class_ref.put(ident, (String) vtable);
+
 		//ClassRecord.put(ident, Integer.toString(index));
 		//index++; //increment index
 	
@@ -170,6 +174,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f1.accept(this); // identifier()
 		n.f2.accept(this); // {
 
+		classRecord.add(ident);
+
 		//ClassRecord.put(ident, index);
 		//index++;
 
@@ -192,6 +198,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 		Type = "class";
 	
 		n.f1.accept(this); // Identifier()
+
+		classRecord.add(ident);
 
 		//ClassRecord.put(ident, index);
 		//index++;
@@ -267,7 +275,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 			System.out.print("Symbol Table: ");
 			table.printall();
 	
-			//System.out.print("\n" + "\n");			
+			System.out.print("\n" + "\n");			
+
+			classRecord.printRecord();
 
 			//System.out.println("Class Record: " + ClassRecord);
 
