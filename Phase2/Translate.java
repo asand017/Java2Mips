@@ -52,7 +52,7 @@ class Translate extends DepthFirstVisitor{
 		System.out.println("func Main()");
 		indent.incScope();
 		indent.printIdent();
-		System.out.println("t.0 = HeapAllocZ(12)");
+		System.out.println("t.0 = HeapAllocZ(4)");
 		//indent.printIdent();
 		//System.out.println("[t.0] = " + 
 		
