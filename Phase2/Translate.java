@@ -13,6 +13,7 @@ import visitor.*;
 import syntaxtree.*;
 
 class Translate extends DepthFirstVisitor{
+	public String h_alloc  = "";
 	public PopSymbolTable names = new PopSymbolTable();
 	public PrinterClass indent = new PrinterClass();
 	public String statement = "";
@@ -24,7 +25,7 @@ class Translate extends DepthFirstVisitor{
 
 	public void dat_seg(ArrayList<VTable> table){
 		for(int i = 0; i < table.size(); i++) {
-			System.out.println("const vmt_ " + table.get(i).vtable_class);		
+			System.out.println("const vmt_" + table.get(i).vtable_class);		
 	
 			for(int j = 0; j < table.get(i).vtable.size(); j++) {
 				System.out.println("\t:" + table.get(i).vtable_class +
@@ -47,14 +48,23 @@ class Translate extends DepthFirstVisitor{
 		return "";
 	
 	}
+
+	public int returnFieldNum(String class_name){
+		if(names.field_vars.containsKey(class_name)){
+			return Integer.parseInt(names.field_vars.get(class_name));
+		}
+		return 0;
+	}
 	
 	public void visit(MainClass n){
 		System.out.println("func Main()");
 		indent.incScope();
 		indent.printIdent();
-		System.out.println("t.0 = HeapAllocZ(4)");
+		int allc = returnFieldNum(names.f_alloc.get(0));
+		//System.out.println("here " + h_alloc);
+		System.out.println("t.0 = HeapAllocZ(" + (allc*4+4) + ")");
 		//indent.printIdent();
-		//System.out.println("[t.0] = " + 
+		//System.out.println(names.alloc);
 		
 		n.f0.accept(this);
 		n.f1.accept(this);
@@ -270,12 +280,18 @@ class Translate extends DepthFirstVisitor{
 			PopSymbolTable populate = new PopSymbolTable();
 			populate.start(in);
 			names = populate;
+			//h_alloc = populate.alloc;
+			//System.out.println(populate.alloc + " here11111111");
 
 			dat_seg(populate.all_vtables);
 
 			Translate n = new Translate();
 
 			n.visit(populate.root);
+
+			/*for(int i = 0; i < names.classRecord.classRecord.size(); i++){
+				System.out.println(returnFieldNum(names.classRecord.classRecord.get(i)));
+			}*/
 
 			//populate.printAllVtable();
 			

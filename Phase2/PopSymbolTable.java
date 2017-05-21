@@ -22,6 +22,11 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 	public static Goal root = null;
 
+	public String alloc = "";
+	public static ArrayList<String> f_alloc = new ArrayList<String>();
+	public boolean get_alloc = false;
+	public boolean alloc_flag = false;
+
 	public VTable vtable = new VTable(); //Vtable	
 
 	public static ClassRecord classRecord = new ClassRecord(); //ClassRecord
@@ -33,10 +38,13 @@ class PopSymbolTable extends DepthFirstVisitor{
 	public static String curr_class = ""; //current class for "this" keyword
 
 	public int scope = 0;
-	
-	//public int index = 0; //starting index for Class Record to be incremented
-	//public int offset = 0;
 
+	public static Map<String, String> field_vars = new HashMap<String, String>(); // (class_name, field_var_num)
+
+	public boolean before_meth = true;
+
+	public int field_num = 0;
+	
 	public void addToAllVtable(String class_name, ArrayList<String> methods){
 		VTable vtables = new VTable(); 
 		vtables.vtable_class = class_name;
@@ -82,24 +90,11 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f0.accept(this);
 		n.f1.accept(this);
 	
-		//vtable.setClass(ident);
-		
-
 		curr_class = ident; //to know which object 'this' keyword refers to
-
-		//classRecord.add(ident);
-
-		//class_ref.put(ident, (String) vtable);
-
-		//ClassRecord.put(ident, Integer.toString(index));
-		//index++; //increment index
-	
+		
 		n.f2.accept(this);
 
-		//vtable.setClass(curr_class);
-
 		addToSymT(ident, Type, Integer.toString(scope));
-
 		scope = scope + 1;
 
 		n.f3.accept(this);
@@ -109,8 +104,6 @@ class PopSymbolTable extends DepthFirstVisitor{
    
 		Type = "method";//n.f5.toString();
 		
-		//vtable.setClass(ident);	
-		//vtable.add("main"); // add main to vtable for primary class
 
 		addToSymT(n.f6.toString(), Type, Integer.toString(scope));
 
@@ -131,10 +124,16 @@ class PopSymbolTable extends DepthFirstVisitor{
 		scope = scope + 1;
 
 		addToSymT(ident, Type, Integer.toString(scope));
-
+		
+		//alloc = ident;
+		alloc_flag = true;
 		n.f14.accept(this);
 		n.f15.accept(this);
-
+		//System.out.println(alloc + " here.......");	
+		alloc_flag = false; // IF WE HAVE TIME -> make sure it can handle multiple method calls to different classes
+		get_alloc = false;
+		f_alloc.add(alloc);
+		//System.out.println(f_alloc + " here.......");	
 		//addToAllVtable(curr_class, methods_list);
 		
 		n.f16.accept(this);
@@ -144,12 +143,35 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f17.accept(this);
 
 		scope = scope - 1;
+		//System.out.println(f_alloc);//.get(0));// + " here.......");	
+	}
+
+	public void visit(MessageSend n){
+		if(alloc_flag){
+			//System.out.println("here");
+			get_alloc = true;
+			alloc_flag = false;
+		}
+		n.f0.accept(this);
+		n.f1.accept(this);
+		n.f2.accept(this);
+		n.f3.accept(this);
+		n.f4.accept(this);
+		n.f5.accept(this);
+		
+
 	
 	}
 	
 	public void visit(Identifier n){
 
 		n.f0.accept(this);
+		
+		if(get_alloc) {
+			alloc = n.f0.toString();
+			get_alloc = false;
+			//System.out.println(n.f0.toString() + " " + alloc + "here");
+		}
 
 		if(Type == "class"){
 			ident = n.f0.toString(); //store identifier name in ident
@@ -177,6 +199,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f0.accept(this); // Type()
 		n.f1.accept(this); // Identifier()
 		n.f2.accept(this); // ;
+
+		if(before_meth){
+			field_num++;
+		}
 
 		addToSymT(ident, Type, Integer.toString(scope));
 	}
@@ -233,6 +259,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 		scope = scope + 1;
 		n.f3.accept(this); // (VarDeclaration())*
+
+		field_vars.put(curr_class, Integer.toString(field_num));
+		before_meth = false;
+
 		n.f4.accept(this); // (MethodDeclaration())*
 
 		addToAllVtable(curr_class, methods_list);
@@ -242,6 +272,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 		methods_list.clear();
 
 		scope = scope - 1;
+	
+		before_meth = true;
+		field_num = 0;
 	}
 
 	public void visit(ClassExtendsDeclaration n){
@@ -269,6 +302,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 		scope = scope + 1;
 
 		n.f5.accept(this); // (VarDeclaration() )*
+
+		field_vars.put(curr_class, Integer.toString(field_num));
+		before_meth = false;		
+
 		n.f6.accept(this); // (MethodDeclaration() )*
 
 		addToAllVtable(curr_class, methods_list);		
@@ -278,6 +315,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 		methods_list.clear();		
 
 		scope = scope - 1;
+
+		before_meth = true;
+		field_num = 0;
 	}
 
 	public void visit(MethodDeclaration n){//More work to be done later
@@ -335,9 +375,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 	    	root = parser.Goal();
 			PopSymbolTable n = new PopSymbolTable();
 			n.visit(root);
+			//System.out.println(f_alloc);//.get(0) + "stop/////////");
 			//parser.ReInit(in);
 
-			//System.out.println();
+			//System.out.println(field_vars);
 
 			//System.out.print("Symbol Table: ");
 			//table.printall();
