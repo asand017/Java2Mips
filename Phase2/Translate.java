@@ -47,6 +47,42 @@ class Translate extends DepthFirstVisitor{
 		return "";
 	
 	}
+	
+	public void visit(MainClass n){
+		System.out.println("func Main()");
+		indent.incScope();
+		indent.printIdent();
+		System.out.println("t.0 = HeapAllocZ(12)");
+		//indent.printIdent();
+		//System.out.println("[t.0] = " + 
+		
+		n.f0.accept(this);
+		n.f1.accept(this);
+		
+		n.f2.accept(this);
+		n.f3.accept(this);
+		n.f4.accept(this);
+		n.f5.accept(this);
+		n.f6.accept(this);
+		n.f7.accept(this);
+		n.f8.accept(this);
+		n.f9.accept(this);
+		n.f10.accept(this);
+		n.f11.accept(this);
+		n.f12.accept(this);
+		n.f13.accept(this);
+		n.f14.accept(this);
+		n.f15.accept(this);
+		//System.out.println(statement);
+		n.f16.accept(this);
+		n.f17.accept(this);
+
+		System.out.println("\tret");
+		System.out.println();
+
+		indent.decScope();
+		
+	}
 
 	public void visit(CompareExpression n) {
 		String comp1 = "";
