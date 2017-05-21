@@ -8,7 +8,7 @@
  */
 
 class PrinterClass {
-	int scope;
+	int scope = 0;
 	
 	//Left Bracket
 	void incScope() {
@@ -26,7 +26,5 @@ class PrinterClass {
 			System.out.print("\t");
 		}
 	}
-
-
 
 }

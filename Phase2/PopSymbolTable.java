@@ -20,6 +20,8 @@ class PopSymbolTable extends DepthFirstVisitor{
 	
 	public static Table table = new Table();
 
+	public static Goal root = null;
+
 	public VTable vtable = new VTable(); //Vtable	
 
 	public static ClassRecord classRecord = new ClassRecord(); //ClassRecord
@@ -330,26 +332,27 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 			MiniJavaParser parser = new MiniJavaParser(in);
 
-	    	Goal root = parser.Goal();
+	    	root = parser.Goal();
 			PopSymbolTable n = new PopSymbolTable();
 			n.visit(root);
+			//parser.ReInit(in);
 
-			System.out.println();
+			//System.out.println();
 
-			System.out.print("Symbol Table: ");
-			table.printall();
+			//System.out.print("Symbol Table: ");
+			//table.printall();
 	
-			System.out.print("\n" + "\n");			
+			//System.out.print("\n" + "\n");			
 
-			System.out.print("Class Record: ");
-			classRecord.printRecord();
+			//System.out.print("Class Record: ");
+			//classRecord.printRecord();
 
-			System.out.println();	
+			//System.out.println();	
 
-			System.out.print("vtable: ");
+			//System.out.print("vtable: ");
 			//vtable.printVtable();
-			printAllVtable();
-			System.out.println();
+			//printAllVtable();
+			//System.out.println();
 			
 			//System.out.println(all_vtables.get(0).getClassName());//printVtable();
 

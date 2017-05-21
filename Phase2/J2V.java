@@ -38,13 +38,20 @@ public class J2V{
 		}
 	}
 
+	
+
 	public static void main(String args[]) {
 		try{
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			//reading in from console input
 		
-			PopSymbolTable populate = new PopSymbolTable();
-			populate.start(in);
+			Translate translate = new Translate();
+			translate.start(in);
+			
+			//PopSymbolTable populate = new PopSymbolTable();
+			//populate.start(in);
+	
+			//populate.table.printall();	
 
 		} catch(Exception e){
 			e.printStackTrace();
