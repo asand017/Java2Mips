@@ -25,10 +25,12 @@ class Translate extends DepthFirstVisitor{
 	public int t_origin = 0;
 	public int null_c = 1;
 	public boolean prnt = false;	
+	public boolean mess = false;
 
 	public boolean in_main = false;
 
 	public int branch_label = 0;
+	public int while_label = 1;
 
 	public void dat_seg(ArrayList<VTable> table){
 		for(int i = 0; i < table.size(); i++) {
@@ -229,7 +231,34 @@ class Translate extends DepthFirstVisitor{
 	
 	}
 
-	
+	public void visit(WhileStatement n){
+		int current_label = while_label;
+		int current_branch = branch_label+1;
+		branch_label++;
+		while_label++;
+		statement = "";
+
+		n.f0.accept(this);
+		n.f1.accept(this);
+		n.f2.accept(this);
+
+		indent.printIdent();
+		System.out.println("while" + while_label + "_top:");
+		indent.printIdent();
+		System.out.println("t." + t_num + " = [this+8]");
+		t_num++;
+		indent.printIdent();
+		System.out.println("if" + current_branch + "t." + t_num + "goto :while" +
+		current_label + "_end");
+
+		n.f3.accept(this);
+		indent.incScope();
+		n.f4.accept(this);
+		indent.decScope();
+
+		indent.printIdent();
+		System.out.println("while" + current_label + "_end:");
+	}	
 	
 	public void visit(MethodDeclaration n){//translates a method
 		n.f0.accept(this);
@@ -290,17 +319,23 @@ class Translate extends DepthFirstVisitor{
 	} 
 		
 	public void visit(AssignmentStatement n){
-
+		statement = "";
 		n.f0.accept(this);
 		statement = statement + " = ";
 		n.f1.accept(this);
 
 		n.f2.accept(this);
 		n.f3.accept(this);
-
+		if(!mess){
+			indent.printIdent();
+			System.out.println(statement);
+		} else{
+			mess = false;
+		}
 	}
 
 	public void visit(MessageSend n){
+		mess = true;
 		String t_call;	
 		statement = "";	
 
@@ -344,6 +379,15 @@ class Translate extends DepthFirstVisitor{
 
 
 			
+	}
+		
+	public void visit(VarDeclaration n){
+		n.f0.accept(this);
+		n.f1.accept(this);
+		n.f2.accept(this);
+		indent.printIdent();
+		System.out.println("t." + t_num + " = " + statement);
+		t_num++;
 	}
 
 	public void visit(TimesExpression n){

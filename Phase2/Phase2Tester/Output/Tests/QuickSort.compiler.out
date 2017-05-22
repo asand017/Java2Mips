@@ -16,64 +16,116 @@ func Main()
 	PrintIntS(t.2)
 	ret
 
+t.0 = 10QSnumber
+t.1 = 10QSnumbersize
 func QS.Start(this sz)
-	t.1 = [this]
-	t.1 = [t.1+0]
-	t.2 = call t.1(this sz)
-	t.3 = [this]
-	t.3 = [t.3+0]
-	t.4 = call t.3(this)
-	PrintIntS(t.4)
-	9999aux01 = Sub(size t.4)
-	t.5 = [this]
-	t.5 = [t.5+0]
-	t.6 = call t.5(this 0aux01)
-	t.7 = [this]
-	t.7 = [t.7+0]
-	t.8 = call t.7(this)
+	t.2 = aux01
+	t.4 = [this]
+	t.4 = [t.4+0]
+	t.5 = call t.4(this sz)
+	t.6 = [this]
+	t.6 = [t.6+0]
+	t.7 = call t.6(this)
+	PrintIntS(t.7)
+	aux01 = Sub(size t.7)
+	aux01 = Sub(size1
+	t.8 = [this]
+	t.8 = [t.8+0]
+	t.9 = call t.8(this 0aux01)
+	t.10 = [this]
+	t.10 = [t.10+0]
+	t.11 = call t.10(this)
 	ret 0
 func QS.Sort(this leftright)
-	t.0 = LtS(left right)
-	if0 t.0 goto :if1_else
-		v = numberrighti = Sub(left t.0)
-		v = numberrighti = Sub(left1j = rightcont01 = 1cont01cont02 = 1cont02i = Add(i t.0)
-		t.0 = LtS(aux03 v)
-		if1 t.0 goto :if2_else
-			cont02 = 0
-			goto :if2_end
-		if2_else:
-		if2_end:
-		cont02 = 1cont02 = 1cont02j = Sub(j t.0)
-		t.0 = LtS(v aux03)
-		if2 t.0 goto :if3_else
-			cont02 = 0
-			goto :if3_end
-		if3_else:
-		if3_end:
-		t.0 = Add(i 1)
-		t.1 = LtS(j t.0)
-		if3 t.1 goto :if4_else
-			cont01 = 0
-			goto :if4_end
-		if4_else:
-		if4_end:
-		t.2 = [this]
-		t.2 = [t.2+0]
-		leftSub(i t.3)
-		t.3 = call t.2(this leftSub(i1)
-		t.4 = [this]
-		t.4 = [t.4+0]
-		t.5 = Add(i 1)
-		t.6 = call t.4(this t.5right)
-		t.5right
+	t.0 = v
+	t.1 = vi
+	t.2 = vij
+	t.3 = vijnt
+	t.4 = vijntt
+	t.5 = vijnttcont01
+	t.6 = vijnttcont01cont02
+	t.7 = vijnttcont01cont02aux03
+	t = 0
+	t.8 = LtS(left right)
+	if0 t.8 goto :if1_else
+		v = numberright
+		i = Sub(left t.8)
+		i = Sub(left1
+		j = right
+		cont01 = 1
+		while2_top:
+		t.8 = [this+8]
+		if2t.9goto :while1_end
+			cont02 = 1
+			while3_top:
+			t.9 = [this+8]
+			if3t.10goto :while2_end
+				i = Add(i t.10)
+				i = Add(i1
+				aux03 = numberi
+				t.10 = LtS(aux03 v)
+				if3 t.10 goto :if4_else
+					cont02 = 0
+					cont02 = 0
+					goto :if4_end
+				if4_else:
+					cont02 = 1
+				if4_end:
+			while2_end:
+			cont02 = 1
+			while4_top:
+			t.10 = [this+8]
+			if5t.11goto :while3_end
+				j = Sub(j t.11)
+				j = Sub(j1
+				aux03 = numberj
+				t.11 = LtS(v aux03)
+				if5 t.11 goto :if6_else
+					cont02 = 0
+					cont02 = 0
+					goto :if6_end
+				if6_else:
+					cont02 = 1
+				if6_end:
+			while3_end:
+			t = numberi
+			t.11 = Add(i 1)
+			t.12 = LtS(j t.11)
+			if6 t.12 goto :if7_else
+				cont01 = 0
+				cont01 = 0
+				goto :if7_end
+			if7_else:
+				cont01 = 1
+			if7_end:
+		while1_end:
+		t.13 = [this]
+		t.13 = [t.13+0]
+		leftSub(i t.14)
+		t.14 = call t.13(this leftSub(i1)
+		t.15 = [this]
+		t.15 = [t.15+0]
+		t.16 = Add(i 1)
+		t.17 = call t.15(this t.16right)
+		t.16right
 		goto :if1_end
 	if1_else:
+		nt = 0
 	if1_end:
 	ret 0
 func QS.Print(this )
-	t.0 = LtS(jj = 0j size)
-	PrintIntS(numberj)
-	numberjj = Add(j t.0)
+	t.0 = j
+	j = 0
+	t.1 = LtS(j size)
+	while5_top:
+	t.1 = [this+8]
+	if8t.2goto :while4_end
+		PrintIntS(t.2)
+		j = Add(j t.2)
+		j = Add(j1
+	while4_end:
 	ret 0
 func QS.Init(this sz)
+	size = sz
+	number = sz
 	ret 0

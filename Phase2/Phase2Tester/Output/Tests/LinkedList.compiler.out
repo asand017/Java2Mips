@@ -33,7 +33,12 @@ func Main()
 	PrintIntS(t.2)
 	ret
 
+t.0 = ElementAge
+t.1 = ElementAgeSalary
+t.2 = ElementAgeSalaryMarried
 func Element.Init(this v_Agev_Salaryv_Married)
+	Salary = v_Salary
+	Married = v_Married
 	ret 1
 func Element.GetAge(this )
 	ret Age
@@ -42,138 +47,203 @@ func Element.GetSalary(this )
 func Element.GetMarried(this )
 	ret Married
 func Element.Equal(this Elementother)
-	t.1 = [other]
-	t.1 = [t.1+0]
-	t.2 = call t.1(other)
-	t.3 = [this]
-	t.3 = [t.3+0]
-	t.4 = call t.3(this aux01Age)
-	if0 t.4 goto :if1_else
+	t.0 = ret_val
+	t.1 = ret_valaux01
+	t.2 = ret_valaux01aux02
+	t.3 = ret_valaux01aux02nt
+	ret_val = 1
+	t.5 = [other]
+	t.5 = [t.5+0]
+	t.6 = call t.5(other)
+	t.7 = [this]
+	t.7 = [t.7+0]
+	t.8 = call t.7(this aux01Age)
+	if0 t.8 goto :if1_else
 		ret_val = 0
 		goto :if1_end
 	if1_else:
-		t.5 = [other]
-		t.5 = [t.5+0]
-		t.6 = call t.5(other)
-		t.7 = [this]
-		t.7 = [t.7+0]
-		t.8 = call t.7(this aux02Salary)
-		if1 t.8 goto :if2_else
+		t.9 = [other]
+		t.9 = [t.9+0]
+		t.10 = call t.9(other)
+		t.11 = [this]
+		t.11 = [t.11+0]
+		t.12 = call t.11(this aux02Salary)
+		if1 t.12 goto :if2_else
 			ret_val = 0
 			goto :if2_end
 		if2_else:
-			if2 t.8 goto :if3_else
-				t.9 = [other]
-				t.9 = [t.9+0]
-				t.10 = call t.9(other)
-				if3 t.10 goto :if4_else
+			if2 t.12 goto :if3_else
+				t.13 = [other]
+				t.13 = [t.13+0]
+				t.14 = call t.13(other)
+				if3 t.14 goto :if4_else
 					ret_val = 0
 					goto :if4_end
 				if4_else:
+					nt = 0
 				if4_end:
 				nt = 0
 				goto :if3_end
 			if3_else:
-				t.11 = [other]
-				t.11 = [t.11+0]
-				t.12 = call t.11(other)
-				if4 t.12 goto :if5_else
+				t.15 = [other]
+				t.15 = [t.15+0]
+				t.16 = call t.15(other)
+				if4 t.16 goto :if5_else
 					ret_val = 0
 					goto :if5_end
 				if5_else:
+					nt = 0
 				if5_end:
 			if3_end:
 		if2_end:
 	if1_end:
 	ret ret_val
 func Element.Compare(this num1num2)
-	retvalaux02retval = 0aux02 = Add(num2 t.0)
-	t.0 = LtS(num1 num2)
-	if5 t.0 goto :if6_else
+	t.0 = retval
+	t.1 = retvalaux02
+	retval = 0
+	aux02 = Add(num2 t.2)
+	aux02 = Add(num21
+	t.2 = LtS(num1 num2)
+	if5 t.2 goto :if6_else
+		retval = 0
 		retval = 0
 		goto :if6_end
 	if6_else:
-		t.0 = LtS(num1 aux02)
-		if6 t.0 goto :if7_else
+		t.2 = LtS(num1 aux02)
+		if6 t.2 goto :if7_else
+			retval = 0
 			retval = 0
 			goto :if7_end
 		if7_else:
+			retval = 1
 		if7_end:
 	if6_end:
 	ret retval
+t.0 = ListElementelem
+t.1 = ListElementelemListnext
+t.2 = ListElementelemListnextend
 func Element.Init(this )
+	end = 1
 	ret 1
 func List.InitNew(this Elementv_elemListv_nextv_end)
+	end = v_end
+	elem = v_elem
+	next = v_next
 	ret 1
 func List.Insert(this Elementnew_elem)
-	t.1 = [aux02]
-	t.1 = [t.1+0]
-	t.2 = call t.1(aux02 new_elemaux030)
+	t.0 = ret_val
+	t.1 = ret_valListaux03
+	t.2 = ret_valListaux03Listaux02
+	aux03 = this
+	aux02 = List
+	t.4 = [aux02]
+	t.4 = [t.4+0]
+	t.5 = call t.4(aux02 new_elemaux030)
 	ret aux02
 func List.SetNext(this Listv_next)
+	next = v_next
 	ret 1
 func List.Delete(this Elemente)
-	Listmy_headret_valaux05Listaux01Listprevvar_endElementvar_elemaux04ntmy_head = thisret_val = 0aux04 = Sub(0 t.0)
-	t.1 = [e]
-	t.1 = [t.1+0]
-	t.2 = call t.1(e var_elem)
-	if7 t.2 goto :if8_else
-		t.2 = LtS(aux04 0)
-		if8 t.2 goto :if9_else
-			t.3 = [aux01]
-			t.3 = [t.3+0]
-			t.4 = call t.3(aux01)
-			
+	t.0 = Listmy_head
+	t.1 = Listmy_headret_val
+	t.2 = Listmy_headret_valaux05
+	t.3 = Listmy_headret_valaux05Listaux01
+	t.4 = Listmy_headret_valaux05Listaux01Listprev
+	t.5 = Listmy_headret_valaux05Listaux01Listprevvar_end
+	t.6 = Listmy_headret_valaux05Listaux01Listprevvar_endElementvar_elem
+	t.7 = Listmy_headret_valaux05Listaux01Listprevvar_endElementvar_elemaux04
+	t.8 = Listmy_headret_valaux05Listaux01Listprevvar_endElementvar_elemaux04nt
+	my_head = this
+	ret_val = 0
+	aux04 = Sub(0 t.9)
+	aux04 = Sub(01
+	aux01 = this
+	prev = this
+	var_end = end
+	var_elem = elem
+	while2_top:
+	t.9 = [this+8]
+	if8t.10goto :while1_end
+		t.11 = [e]
+		t.11 = [t.11+0]
+		t.12 = call t.11(e var_elem)
+		if8 t.12 goto :if9_else
+			t.12 = LtS(aux04 0)
+			if9 t.12 goto :if10_else
+				t.13 = [aux01]
+				t.13 = [t.13+0]
+				t.14 = call t.13(aux01)
+				
+				goto :if10_end
+			if10_else:
+				t.14 = Sub(0 555)
+				PrintIntS(t.15)
+				t.16 = [prev]
+				t.16 = [t.16+0]
+				t.18 = [aux01]
+				t.18 = [t.18+0]
+				t.19 = call t.18(aux01)
+				t.19 = call t.18(prev)
+				t.19 = Sub(0 555)
+				PrintIntS(t.20)
+			if10_end:
+			t.19
 			goto :if9_end
 		if9_else:
-			t.4 = Sub(0 555)
-			PrintIntS(t.5)
-			t.6 = [prev]
-			t.6 = [t.6+0]
-			t.8 = [aux01]
-			t.8 = [t.8+0]
-			t.9 = call t.8(aux01)
-			t.9 = call t.8(prev)
-			t.9 = Sub(0 555)
-			PrintIntS(t.10)
+			nt = 0
 		if9_end:
-		t.9
-		goto :if8_end
-	if8_else:
-	if8_end:
-	if9 t.10 goto :if10_else
+		if10 t.20 goto :if11_else
+			prev = aux01
+			t.21 = [aux01]
+			t.21 = [t.21+0]
+			t.22 = call t.21(aux01)
+			t.23 = [aux01]
+			t.23 = [t.23+0]
+			t.24 = call t.23(aux01)
+			t.25 = [aux01]
+			t.25 = [t.25+0]
+			t.26 = call t.25(aux01)
+			aux04 = 1
+			aux04 = 1
+			goto :if11_end
+		if11_else:
+			nt = 0
+		if11_end:
+	while1_end:
+	ret my_head
+func List.Search(this Elemente)
+	t.0 = int_ret_val
+	t.1 = int_ret_valListaux01
+	t.2 = int_ret_valListaux01Elementvar_elem
+	t.3 = int_ret_valListaux01Elementvar_elemvar_end
+	t.4 = int_ret_valListaux01Elementvar_elemvar_endnt
+	int_ret_val = 0
+	aux01 = this
+	var_end = end
+	var_elem = elem
+	while3_top:
+	t.5 = [this+8]
+	if12t.6goto :while2_end
+		t.7 = [e]
+		t.7 = [t.7+0]
+		t.8 = call t.7(e var_elem)
+		if12 t.8 goto :if13_else
+			int_ret_val = 1
+			goto :if13_end
+		if13_else:
+			nt = 0
+		if13_end:
+		t.9 = [aux01]
+		t.9 = [t.9+0]
+		t.10 = call t.9(aux01)
 		t.11 = [aux01]
 		t.11 = [t.11+0]
 		t.12 = call t.11(aux01)
 		t.13 = [aux01]
 		t.13 = [t.13+0]
 		t.14 = call t.13(aux01)
-		t.15 = [aux01]
-		t.15 = [t.15+0]
-		t.16 = call t.15(aux01)
-		aux04 = 1
-		goto :if10_end
-	if10_else:
-	if10_end:
-	ret my_head
-func List.Search(this Elemente)
-	t.1 = [e]
-	t.1 = [t.1+0]
-	t.2 = call t.1(e var_elem)
-	if10 t.2 goto :if11_else
-		int_ret_val = 1
-		goto :if11_end
-	if11_else:
-	if11_end:
-	t.3 = [aux01]
-	t.3 = [t.3+0]
-	t.4 = call t.3(aux01)
-	t.5 = [aux01]
-	t.5 = [t.5+0]
-	t.6 = call t.5(aux01)
-	t.7 = [aux01]
-	t.7 = [t.7+0]
-	t.8 = call t.7(aux01)
+	while2_end:
 	ret int_ret_val
 func List.GetEnd(this )
 	ret end
@@ -182,43 +252,52 @@ func List.GetElem(this )
 func List.GetNext(this )
 	ret next
 func List.Print(this )
-	t.1 = [var_elem]
-	t.1 = [t.1+0]
-	t.2 = call t.1(var_elem)
-	PrintIntS(t.2)
-	t.3 = [aux01]
-	t.3 = [t.3+0]
-	t.4 = call t.3(aux01)
-	t.5 = [aux01]
-	t.5 = [t.5+0]
-	t.6 = call t.5(aux01)
-	t.7 = [aux01]
-	t.7 = [t.7+0]
-	t.8 = call t.7(aux01)
+	t.0 = Listaux01
+	t.1 = Listaux01var_end
+	t.2 = Listaux01var_endElementvar_elem
+	aux01 = this
+	var_end = end
+	var_elem = elem
+	while4_top:
+	t.3 = [this+8]
+	if14t.4goto :while3_end
+		t.5 = [var_elem]
+		t.5 = [t.5+0]
+		t.6 = call t.5(var_elem)
+		PrintIntS(t.6)
+		t.7 = [aux01]
+		t.7 = [t.7+0]
+		t.8 = call t.7(aux01)
+		t.9 = [aux01]
+		t.9 = [t.9+0]
+		t.10 = call t.9(aux01)
+		t.11 = [aux01]
+		t.11 = [t.11+0]
+		t.12 = call t.11(aux01)
+	while3_end:
 	ret 1
 func LL.Start(this )
-	t.1 = [last_elem]
-	t.1 = [t.1+0]
-	t.2 = call t.1(last_elem)
-	t.3 = [head]
-	t.3 = [t.3+0]
-	t.4 = call t.3(head)
-	t.5 = [head]
-	t.5 = [t.5+0]
-	t.6 = call t.5(head)
-	t.7 = [el01]
+	t.0 = Listhead
+	t.1 = ListheadListlast_elem
+	t.2 = ListheadListlast_elemaux01
+	t.3 = ListheadListlast_elemaux01Elementel01
+	t.4 = ListheadListlast_elemaux01Elementel01Elementel02
+	t.5 = ListheadListlast_elemaux01Elementel01Elementel02Elementel03
+	last_elem = List
+	t.7 = [last_elem]
 	t.7 = [t.7+0]
-	t.8 = call t.7(el01 25370000)
+	t.8 = call t.7(last_elem)
+	head = last_elem
 	t.9 = [head]
 	t.9 = [t.9+0]
-	t.10 = call t.9(head el01)
+	t.10 = call t.9(head)
 	t.11 = [head]
 	t.11 = [t.11+0]
 	t.12 = call t.11(head)
-	PrintIntS(t.12)
+	el01 = Element
 	t.13 = [el01]
 	t.13 = [t.13+0]
-	t.14 = call t.13(el01 39420001)
+	t.14 = call t.13(el01 25370000)
 	t.15 = [head]
 	t.15 = [t.15+0]
 	t.16 = call t.15(head el01)
@@ -226,49 +305,63 @@ func LL.Start(this )
 	t.17 = [t.17+0]
 	t.18 = call t.17(head)
 	PrintIntS(t.18)
+	el01 = Element
 	t.19 = [el01]
 	t.19 = [t.19+0]
-	t.20 = call t.19(el01 22340000)
+	t.20 = call t.19(el01 39420001)
+	el02 = el01
 	t.21 = [head]
 	t.21 = [t.21+0]
 	t.22 = call t.21(head el01)
 	t.23 = [head]
 	t.23 = [t.23+0]
 	t.24 = call t.23(head)
-	t.25 = [el03]
+	PrintIntS(t.24)
+	el01 = Element
+	t.25 = [el01]
 	t.25 = [t.25+0]
-	t.26 = call t.25(el03 27340000)
+	t.26 = call t.25(el01 22340000)
 	t.27 = [head]
 	t.27 = [t.27+0]
-	t.28 = call t.27(head el02)
-	PrintIntS(t.28)
+	t.28 = call t.27(head el01)
 	t.29 = [head]
 	t.29 = [t.29+0]
-	t.30 = call t.29(head el03)
-	PrintIntS(t.30)
-	PrintIntS(t.30)
-	t.31 = [el01]
+	t.30 = call t.29(head)
+	el03 = Element
+	t.31 = [el03]
 	t.31 = [t.31+0]
-	t.32 = call t.31(el01 28350000)
+	t.32 = call t.31(el03 27340000)
 	t.33 = [head]
 	t.33 = [t.33+0]
-	t.34 = call t.33(head el01)
+	t.34 = call t.33(head el02)
+	PrintIntS(t.34)
 	t.35 = [head]
 	t.35 = [t.35+0]
-	t.36 = call t.35(head)
+	t.36 = call t.35(head el03)
 	PrintIntS(t.36)
-	t.37 = [head]
+	PrintIntS(t.36)
+	t.37 = [el01]
 	t.37 = [t.37+0]
-	t.38 = call t.37(head el02)
+	t.38 = call t.37(el01 28350000)
 	t.39 = [head]
 	t.39 = [t.39+0]
-	t.40 = call t.39(head)
-	PrintIntS(t.40)
+	t.40 = call t.39(head el01)
 	t.41 = [head]
 	t.41 = [t.41+0]
-	t.42 = call t.41(head el01)
+	t.42 = call t.41(head)
+	PrintIntS(t.42)
 	t.43 = [head]
 	t.43 = [t.43+0]
-	t.44 = call t.43(head)
-	PrintIntS(t.44)
+	t.44 = call t.43(head el02)
+	t.45 = [head]
+	t.45 = [t.45+0]
+	t.46 = call t.45(head)
+	PrintIntS(t.46)
+	t.47 = [head]
+	t.47 = [t.47+0]
+	t.48 = call t.47(head el01)
+	t.49 = [head]
+	t.49 = [t.49+0]
+	t.50 = call t.49(head)
+	PrintIntS(t.50)
 	ret 0

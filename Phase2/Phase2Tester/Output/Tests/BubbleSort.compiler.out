@@ -16,42 +16,82 @@ func Main()
 	PrintIntS(t.2)
 	ret
 
+t.0 = 10BBSnumber
+t.1 = 10BBSnumbersize
 func BBS.Start(this sz)
-	t.1 = [this]
-	t.1 = [t.1+0]
-	t.2 = call t.1(this sz)
-	t.3 = [this]
-	t.3 = [t.3+0]
-	t.4 = call t.3(this)
-	PrintIntS(t.4)
-	t.5 = [this]
-	t.5 = [t.5+0]
-	t.6 = call t.5(this)
-	t.7 = [this]
-	t.7 = [t.7+0]
-	t.8 = call t.7(this)
+	t.2 = aux01
+	t.4 = [this]
+	t.4 = [t.4+0]
+	t.5 = call t.4(this sz)
+	t.6 = [this]
+	t.6 = [t.6+0]
+	t.7 = call t.6(this)
+	PrintIntS(t.7)
+	t.8 = [this]
+	t.8 = [t.8+0]
+	t.9 = call t.8(this)
+	t.10 = [this]
+	t.10 = [t.10+0]
+	t.11 = call t.10(this)
 	ret 0
 func BBS.Sort(this )
-	ntiaux02aux04aux05aux06aux07jti = Sub(size t.0)
-	ntiaux02aux04aux05aux06aux07jti = Sub(size1aux02 = Sub(0 t.0)
-	t.0 = LtS(ntiaux02aux04aux05aux06aux07jti = Sub(size1aux02 = Sub(01aux02 i)
-	t.0 = Add(i 1)
-	t.1 = LtS(j = 1j t.0)
-	aux07 = Sub(j t.1)
-	t.1 = LtS(aux05 aux04)
-	if0 t.1 goto :if1_else
-		aux06 = Sub(j t.1)
-		aux06 = Sub(j1t = numberaux06numberaux06numberjnumberjt
-		goto :if1_end
-	if1_else:
-	if1_end:
-	nt = 0j = Add(j t.1)
-	nt = 0j = Add(j1i = Sub(i t.1)
+	t.0 = nt
+	t.1 = nti
+	t.2 = ntiaux02
+	t.3 = ntiaux02aux04
+	t.4 = ntiaux02aux04aux05
+	t.5 = ntiaux02aux04aux05aux06
+	t.6 = ntiaux02aux04aux05aux06aux07
+	t.7 = ntiaux02aux04aux05aux06aux07j
+	t.8 = ntiaux02aux04aux05aux06aux07jt
+	i = Sub(size t.9)
+	i = Sub(size1
+	aux02 = Sub(0 t.9)
+	aux02 = Sub(01
+	t.9 = LtS(aux02 i)
+	while2_top:
+	t.9 = [this+8]
+	if1t.10goto :while1_end
+		j = 1
+		t.10 = Add(i 1)
+		t.11 = LtS(j t.10)
+		while3_top:
+		t.11 = [this+8]
+		if2t.12goto :while2_end
+			aux07 = Sub(j t.12)
+			aux07 = Sub(j1
+			aux04 = numberaux07
+			aux05 = numberj
+			t.12 = LtS(aux05 aux04)
+			if2 t.12 goto :if3_else
+				aux06 = Sub(j t.12)
+				aux06 = Sub(j1
+				t = numberaux06
+				t = numberaux06numberaux06numberjnumberjt
+				goto :if3_end
+			if3_else:
+				nt = 0
+			if3_end:
+			j = Add(j t.12)
+			j = Add(j1
+		while2_end:
+		i = Sub(i t.12)
+		i = Sub(i1
+	while1_end:
 	ret 0
 func BBS.Print(this )
-	t.0 = LtS(jj = 0j size)
-	PrintIntS(numberj)
-	numberjj = Add(j t.0)
+	t.0 = j
+	j = 0
+	t.1 = LtS(j size)
+	while4_top:
+	t.1 = [this+8]
+	if4t.2goto :while3_end
+		PrintIntS(t.2)
+		j = Add(j t.2)
+		j = Add(j1
+	while3_end:
 	ret 0
 func BBS.Init(this sz)
+	size = sz
+	number = sz
 	ret 0

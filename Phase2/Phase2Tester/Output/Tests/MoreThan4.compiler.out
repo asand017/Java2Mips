@@ -15,15 +15,16 @@ func Main()
 	ret
 
 func MT4.Start(this p1p2p3p4p5p6)
-	PrintIntS(auxp1)
-	PrintIntS(auxp1p2)
-	PrintIntS(auxp1p2p3)
-	PrintIntS(auxp1p2p3p4)
-	PrintIntS(auxp1p2p3p4p5)
-	PrintIntS(auxp1p2p3p4p5p6)
-	t.1 = [this]
-	t.1 = [t.1+0]
-	t.2 = call t.1(this p6p5p4p3p2p1)
+	t.0 = aux
+	PrintIntS(t.1)
+	PrintIntS(t.1)
+	PrintIntS(t.1)
+	PrintIntS(t.1)
+	PrintIntS(t.1)
+	PrintIntS(t.1)
+	t.2 = [this]
+	t.2 = [t.2+0]
+	t.3 = call t.2(this p6p5p4p3p2p1)
 	ret aux
 func MT4.Change(this p1p2p3p4p5p6)
 	PrintIntS(p1)

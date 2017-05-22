@@ -14,15 +14,16 @@ func Main()
 	ret
 
 func Fac.ComputeFac(this num)
-	t.0 = LtS(num 1)
-	if0 t.0 goto :if1_else
+	t.0 = num_aux
+	t.1 = LtS(num 1)
+	if0 t.1 goto :if1_else
 		num_aux = 1
 		goto :if1_end
 	if1_else:
-		t.1 = [this]
-		t.1 = [t.1+0]
-		t.2 = Sub(num 1)
-		t.3 = call t.1(this t.2)
-		num_aux = MulS(num t.3)
+		t.2 = [this]
+		t.2 = [t.2+0]
+		t.3 = Sub(num 1)
+		t.4 = call t.2(this t.3)
+		num_aux = MulS(num t.4)
 	if1_end:
 	ret num_aux

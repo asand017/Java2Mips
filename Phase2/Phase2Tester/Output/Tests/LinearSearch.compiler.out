@@ -16,59 +16,106 @@ func Main()
 	PrintIntS(t.2)
 	ret
 
+t.0 = 10LSnumber
+t.1 = 10LSnumbersize
 func LS.Start(this sz)
-	t.1 = [this]
-	t.1 = [t.1+0]
-	t.2 = call t.1(this sz)
-	t.3 = [this]
-	t.3 = [t.3+0]
-	t.4 = call t.3(this)
-	PrintIntS(t.4)
+	t.2 = aux01
+	t.3 = aux01aux02
 	t.5 = [this]
 	t.5 = [t.5+0]
-	t.6 = call t.5(this 8)
-	PrintIntS(t.6)
+	t.6 = call t.5(this sz)
 	t.7 = [this]
 	t.7 = [t.7+0]
-	t.8 = call t.7(this 12)
+	t.8 = call t.7(this)
 	PrintIntS(t.8)
 	t.9 = [this]
 	t.9 = [t.9+0]
-	t.10 = call t.9(this 17)
+	t.10 = call t.9(this 8)
 	PrintIntS(t.10)
 	t.11 = [this]
 	t.11 = [t.11+0]
-	t.12 = call t.11(this 50)
+	t.12 = call t.11(this 12)
 	PrintIntS(t.12)
+	t.13 = [this]
+	t.13 = [t.13+0]
+	t.14 = call t.13(this 17)
+	PrintIntS(t.14)
+	t.15 = [this]
+	t.15 = [t.15+0]
+	t.16 = call t.15(this 50)
+	PrintIntS(t.16)
 	ret 55
 func LS.Print(this )
-	t.0 = LtS(jj = 1j size)
-	PrintIntS(numberj)
-	numberjj = Add(j t.0)
+	t.0 = j
+	t.1 = LtS(j size)
+	while2_top:
+	t.1 = [this+8]
+	if1t.2goto :while1_end
+		PrintIntS(t.2)
+		j = Add(j t.2)
+		j = Add(j1
+	while1_end:
 	ret 0
 func LS.Search(this num)
-	t.0 = LtS(jls01ifoundaux01aux02ntj = 1ls01 = 0ifound = 0j size)
-	aux01 = numberjaux02 = Add(num t.0)
-	t.0 = LtS(aux01 num)
-	if0 t.0 goto :if1_else
-		nt = 0
-		goto :if1_end
-	if1_else:
-		t.0 = LtS(aux01 aux02)
-		if1 t.0 goto :if2_else
+	t.0 = j
+	t.1 = jls01
+	t.2 = jls01ifound
+	t.3 = jls01ifoundaux01
+	t.4 = jls01ifoundaux01aux02
+	t.5 = jls01ifoundaux01aux02nt
+	j = 1
+	ls01 = 0
+	ifound = 0
+	t.6 = LtS(j size)
+	while3_top:
+	t.6 = [this+8]
+	if2t.7goto :while2_end
+		aux01 = numberj
+		aux02 = Add(num t.7)
+		aux02 = Add(num1
+		t.7 = LtS(aux01 num)
+		if2 t.7 goto :if3_else
 			nt = 0
-			goto :if2_end
-		if2_else:
-		if2_end:
-	if1_end:
-	ls01 = 1ifound = 1j = sizej = Add(j t.0)
+			nt = 0
+			goto :if3_end
+		if3_else:
+			t.7 = LtS(aux01 aux02)
+			if3 t.7 goto :if4_else
+				nt = 0
+				nt = 0
+				goto :if4_end
+			if4_else:
+				ls01 = 1
+				ifound = 1
+				j = size
+			if4_end:
+		if3_end:
+		j = Add(j t.7)
+		j = Add(j1
+	while2_end:
 	ret ifound
 func LS.Init(this sz)
-	jkaux01aux02size = sznumber = szj = 1k = Add(size t.0)
-	t.0 = LtS(jkaux01aux02size = sznumber = szj = 1k = Add(size1j size)
-	aux01 = MulS(2 t.0)
-	aux01 = MulS(2jaux02 = Sub(k t.0)
-	aux01 = MulS(2jaux02 = Sub(k3numberjAdd(aux01 t.0)
-	aux01 = MulS(2jaux02 = Sub(k3numberjAdd(aux01aux02j = Add(j t.0)
-	aux01 = MulS(2jaux02 = Sub(k3numberjAdd(aux01aux02j = Add(j1k = Sub(k t.0)
+	t.0 = j
+	t.1 = jk
+	t.2 = jkaux01
+	t.3 = jkaux01aux02
+	size = sz
+	number = sz
+	j = 1
+	k = Add(size t.4)
+	k = Add(size1
+	t.4 = LtS(j size)
+	while4_top:
+	t.4 = [this+8]
+	if5t.5goto :while3_end
+		aux01 = MulS(2 t.5)
+		aux01 = MulS(2j
+		aux02 = Sub(k t.5)
+		aux02 = Sub(k3
+		aux02 = Sub(k3numberjAdd(aux01 t.5)
+		j = Add(j t.5)
+		j = Add(j1
+		k = Sub(k t.5)
+		k = Sub(k1
+	while3_end:
 	ret 0
