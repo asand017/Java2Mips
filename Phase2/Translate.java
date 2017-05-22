@@ -71,18 +71,28 @@ class Translate extends DepthFirstVisitor{
 		indent.printIdent();
 		int allc = returnFieldNum(names.f_alloc.get(0));
 		//System.out.println("here " + h_alloc);
-		System.out.println("t." + t_num + " = HeapAllocZ(" + (allc*4+4) + ")");
-		indent.printIdent();
+		if(names.classRecord.classRecord.size() == 0){
+		
+		}else{
+			System.out.println("t." + t_num + " = HeapAllocZ(" + (allc*4+4) + ")");
+			indent.printIdent();
+		}
 		//System.out.println(names.alloc);
+
+		if(names.classRecord.classRecord.size() == 0){		
+					
+		}else{
+			System.out.println("[t." + t_num + "] = :vmt_" + names.f_alloc.get(0));
 		
-		System.out.println("[t." + t_num + "] = :vmt_" + names.f_alloc.get(0));
-		
-		indent.printIdent();
-		System.out.println("if t." + t_num + " goto :null" + null_c);
-		indent.printIdent();
-		System.out.println("Error(\"null pointer\")");
-		indent.printIdent();
-		System.out.println("null" + null_c + ":");	
+			indent.printIdent();
+			System.out.println("if t." + t_num + " goto :null" + null_c);
+			indent.incScope();
+			indent.printIdent();
+			indent.decScope();
+			System.out.println("Error(\"null pointer\")");
+			indent.printIdent();
+			System.out.println("null" + null_c + ":");	
+		}
 
 		//statement = "t." + t_num;
 		
@@ -135,10 +145,13 @@ class Translate extends DepthFirstVisitor{
 		n.f4.accept(this);
 		
 		//t_num++;
-
-		indent.printIdent();
-		System.out.println("PrintIntS(t." + t_num  + ")");
-
+		if(names.classRecord.classRecord.size() == 0) {
+			//indent.printIdent();
+			//System.out.println("PrintIntS(" + statement + ")");
+		} else {
+			indent.printIdent();
+			System.out.println("PrintIntS(t." + t_num  + ")");
+		}
 	}
 
 	public void visit(CompareExpression n) {
@@ -206,6 +219,8 @@ class Translate extends DepthFirstVisitor{
 		System.out.println("if" + current_label + "_end:");
 	
 	}
+
+	
 	
 	public void visit(MethodDeclaration n){//translates a method
 		n.f0.accept(this);
@@ -316,39 +331,58 @@ class Translate extends DepthFirstVisitor{
 	public void visit(TimesExpression n){
 		boolean emp = false;
 		String mult = "";
-
-		if(statement == "") {
-			statement = statement + "t." + t_num + " = MulS(";
-			emp = true;
-		}else {
-			statement = statement + "MulS(";
+		if(!(names.classRecord.classRecord.size() == 0)) {
+			if(statement == "") {
+				statement = statement + "t." + t_num + " = MulS(";
+				emp = true;
+			}else {
+				statement = statement + "MulS(";
+			}
+		} else{
+			//indent.printIdent();
+			System.out.print("x = ");
 		}
 		n.f0.accept(this);	
 		n.f1.accept(this);
 
-		if(emp) {
-			statement = statement + " ";
+		if(!(names.classRecord.classRecord.size() == 0)) {
+			if(emp) {
+				statement = statement + " ";
+			} else {
+				mult = statement;
+			}
 		} else {
-			mult = statement;
+			//indent.printIdent();
+			System.out.print(statement + "\n");
+			indent.printIdent();
+			System.out.print("y = Mult(x ");
 		}
 		
 		n.f2.accept(this);		
 		
-		if(emp) {
+		if(!(names.classRecord.classRecord.size() == 0)) {	
+			if(emp) {
+				statement = statement + ")";
+				indent.printIdent();
+				System.out.println(statement);
+				statement = "t." + t_num;
+				//System.out.println(statement);
+				t_num++;	
+			} else {
+				indent.printIdent();
+				System.out.println(mult + " t." + (t_num) + ")");  
+			}
+		} else{
 			statement = statement + ")";
+			System.out.print(statement +"\n");
 			indent.printIdent();
-			System.out.println(statement);
-			statement = "t." + t_num;
-			//System.out.println(statement);
-			t_num++;	
-		} else {
-			indent.printIdent();
-			System.out.println(mult + " t." + (t_num) + ")");  
+			System.out.println("PrintIntS(y)");
+			
 		}
 
-		if(!in_main){
+	//	if(!in_main){
 			//statement = "";
-		}
+	//	}
 		//t_num++;
 		
 	}
@@ -359,71 +393,108 @@ class Translate extends DepthFirstVisitor{
 	}
 
 	public void visit(MinusExpression n){
-		//t_num++;
-		String sub = "";
 		boolean emp = false;
-		if(statement == ""){
-			statement = statement +"t." + t_num + " = Sub(";
-			emp = true;
-		} else {
-			statement = statement + "Sub(";
+		String mult = "";
+		if(!(names.classRecord.classRecord.size() == 0)) {
+			if(statement == "") {
+				statement = statement + "t." + t_num + " = Sub(";
+				emp = true;
+			}else {
+				statement = statement + "Sub(";
+			}
+		} else{
+			//indent.printIdent();
+			System.out.print("x = ");
 		}
-
-		n.f0.accept(this);
+		n.f0.accept(this);	
 		n.f1.accept(this);
-		
-		if(emp) {
-			statement = statement + " ";
-		}else {
-			 sub = statement;
-		}
 
-		n.f2.accept(this);	
-
-		if(emp) {
-			statement = statement + ")";
-			indent.printIdent();
-			System.out.println(statement);
-			statement = "t." + t_num;
-			t_num++;
+		if(!(names.classRecord.classRecord.size() == 0)) {
+			if(emp) {
+				statement = statement + " ";
+			} else {
+				mult = statement;
+			}
 		} else {
+			//indent.printIdent();
+			System.out.print(statement + "\n");
 			indent.printIdent();
-			System.out.println(sub + " t." + (t_num) + ")");  
+			System.out.print("y = Sub(x ");
 		}
+		
+		n.f2.accept(this);		
+		
+		if(!(names.classRecord.classRecord.size() == 0)) {	
+			if(emp) {
+				statement = statement + ")";
+				indent.printIdent();
+				System.out.println(statement);
+				statement = "t." + t_num;
+				//System.out.println(statement);
+				t_num++;	
+			} else {
+				indent.printIdent();
+				System.out.println(mult + " t." + (t_num) + ")");  
+			}
+		} else{
+			statement = statement + ")";
+			System.out.print(statement +"\n");
+			indent.printIdent();
+			System.out.println("PrintIntS(y)");
+			
 	}
+}
 
-	public void visit(PlusExpression n){
-		
-		String sub = "";
+	public void visit(PlusExpression n) {
 		boolean emp = false;
-		if(statement == ""){
-			statement = statement +"t." + t_num + " = Add(";
-			emp = true;
-		} else {
-			statement = statement + "Add(";
+		String mult = "";
+		if(!(names.classRecord.classRecord.size() == 0)) {
+			if(statement == "") {
+				statement = statement + "t." + t_num + " = Add(";
+				emp = true;
+			}else {
+				statement = statement + "Add(";
+			}
+		} else{
+			//indent.printIdent();
+			System.out.print("x = ");
 		}
-
-		n.f0.accept(this);
+		n.f0.accept(this);	
 		n.f1.accept(this);
-		
-		if(emp) {
-			statement = statement + " ";
-		}else {
-			 sub = statement;
-		}
 
-		n.f2.accept(this);	
-
-		if(emp) {
-			statement = statement + ")";
-			indent.printIdent();
-			System.out.println(statement);
-			statement = "t." + t_num;
-			t_num++;
+		if(!(names.classRecord.classRecord.size() == 0)) {
+			if(emp) {
+				statement = statement + " ";
+			} else {
+				mult = statement;
+			}
 		} else {
+			//indent.printIdent();
+			System.out.print(statement + "\n");
 			indent.printIdent();
-			System.out.println(sub + " t." + (t_num) + ")");  
+			System.out.print("y = Add(x ");
 		}
+		
+		n.f2.accept(this);		
+		
+		if(!(names.classRecord.classRecord.size() == 0)) {	
+			if(emp) {
+				statement = statement + ")";
+				indent.printIdent();
+				System.out.println(statement);
+				statement = "t." + t_num;
+				//System.out.println(statement);
+				t_num++;	
+			} else {
+				indent.printIdent();
+				System.out.println(mult + " t." + (t_num) + ")");  
+			}
+		} else{
+			statement = statement + ")";
+			System.out.print(statement +"\n");
+			indent.printIdent();
+			System.out.println("PrintIntS(y)");
+		}		
 	}
 	
 	public void visit(TrueLiteral n){
