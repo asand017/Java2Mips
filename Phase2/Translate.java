@@ -296,6 +296,7 @@ class Translate extends DepthFirstVisitor{
 		n.f2.accept(this);
 		statement = "";
 		n.f3.accept(this);
+		statement = "";
 		n.f4.accept(this);
 		//statement = "";
 		n.f5.accept(this);
@@ -313,24 +314,42 @@ class Translate extends DepthFirstVisitor{
 	}
 
 	public void visit(TimesExpression n){
+		boolean emp = false;
+		String mult = "";
+
 		if(statement == "") {
 			statement = statement + "t." + t_num + " = MulS(";
+			emp = true;
 		}else {
 			statement = statement + "MulS(";
 		}
 		n.f0.accept(this);	
 		n.f1.accept(this);
 
-		String mult = statement;
+		if(emp) {
+			statement = statement + " ";
+		} else {
+			mult = statement;
+		}
 		
 		n.f2.accept(this);		
-
-		indent.printIdent();
-		System.out.println(mult + " t." + (t_num) + ")");  
+		
+		if(emp) {
+			statement = statement + ")";
+			indent.printIdent();
+			System.out.println(statement);
+			statement = "t." + t_num;
+			//System.out.println(statement);
+			t_num++;	
+		} else {
+			indent.printIdent();
+			System.out.println(mult + " t." + (t_num) + ")");  
+		}
 
 		if(!in_main){
-			statement = "";
+			//statement = "";
 		}
+		//t_num++;
 		
 	}
 	
@@ -341,25 +360,90 @@ class Translate extends DepthFirstVisitor{
 
 	public void visit(MinusExpression n){
 		//t_num++;
+		String sub = "";
+		boolean emp = false;
 		if(statement == ""){
 			statement = statement +"t." + t_num + " = Sub(";
+			emp = true;
 		} else {
 			statement = statement + "Sub(";
 		}
 
 		n.f0.accept(this);
 		n.f1.accept(this);
-
-		statement = statement + " ";
+		
+		if(emp) {
+			statement = statement + " ";
+		}else {
+			 sub = statement;
+		}
 
 		n.f2.accept(this);	
 
-		statement = statement + ")";
+		if(emp) {
+			statement = statement + ")";
+			indent.printIdent();
+			System.out.println(statement);
+			statement = "t." + t_num;
+			t_num++;
+		} else {
+			indent.printIdent();
+			System.out.println(sub + " t." + (t_num) + ")");  
+		}
+	}
+
+	public void visit(PlusExpression n){
 		
-		indent.printIdent();
-		System.out.println(statement);
-		statement = "t." + t_num;
-		t_num++;
+		String sub = "";
+		boolean emp = false;
+		if(statement == ""){
+			statement = statement +"t." + t_num + " = Add(";
+			emp = true;
+		} else {
+			statement = statement + "Add(";
+		}
+
+		n.f0.accept(this);
+		n.f1.accept(this);
+		
+		if(emp) {
+			statement = statement + " ";
+		}else {
+			 sub = statement;
+		}
+
+		n.f2.accept(this);	
+
+		if(emp) {
+			statement = statement + ")";
+			indent.printIdent();
+			System.out.println(statement);
+			statement = "t." + t_num;
+			t_num++;
+		} else {
+			indent.printIdent();
+			System.out.println(sub + " t." + (t_num) + ")");  
+		}
+	}
+	
+	public void visit(TrueLiteral n){
+		n.f0.accept(this);
+		if(!in_main) {
+			statement = statement + "1";
+		} else{
+			statement = "1";
+		}
+
+	}
+	
+	public void visit(FalseLiteral n){
+		n.f0.accept(this);
+		if(!in_main) {
+			statement = statement + "0";
+		} else{
+			statement = "0";
+		}
+
 	}
 
 	public void start(BufferedReader in){
