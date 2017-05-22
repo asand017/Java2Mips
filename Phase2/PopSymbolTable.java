@@ -24,6 +24,9 @@ class PopSymbolTable extends DepthFirstVisitor{
 
 	public String alloc = "";
 	public static ArrayList<String> f_alloc = new ArrayList<String>();
+	public static ArrayList<String> vmt = new ArrayList<String>();
+	//public boolean get_vmt = false;
+	//public boolean flag_vmt = false;
 	public boolean get_alloc = false;
 	public boolean alloc_flag = false;
 
@@ -126,6 +129,7 @@ class PopSymbolTable extends DepthFirstVisitor{
 		addToSymT(ident, Type, Integer.toString(scope));
 		
 		//alloc = ident;
+		//flag_vmt = true;
 		alloc_flag = true;
 		n.f14.accept(this);
 		n.f15.accept(this);
@@ -158,11 +162,10 @@ class PopSymbolTable extends DepthFirstVisitor{
 		n.f3.accept(this);
 		n.f4.accept(this);
 		n.f5.accept(this);
-		
-
 	
 	}
 	
+
 	public void visit(Identifier n){
 
 		n.f0.accept(this);
@@ -172,6 +175,11 @@ class PopSymbolTable extends DepthFirstVisitor{
 			get_alloc = false;
 			//System.out.println(n.f0.toString() + " " + alloc + "here");
 		}
+	
+		/*if(get_vmt) {
+			vmt.add(n.f0.toString();
+			get_vmt = false;
+		}*/
 
 		if(Type == "class"){
 			ident = n.f0.toString(); //store identifier name in ident

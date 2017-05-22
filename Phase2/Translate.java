@@ -9,6 +9,7 @@
 
 import java.util.*;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import visitor.*;
 import syntaxtree.*;
 
@@ -16,10 +17,15 @@ class Translate extends DepthFirstVisitor{
 	public String h_alloc  = "";
 	public PopSymbolTable names = new PopSymbolTable();
 	public PrinterClass indent = new PrinterClass();
+	//public PrintWriter writer = new Print
 	public String statement = "";
 	public String string_num = "";
 	public int num = 0;
-	public int t_num = 1;
+	public int t_num = 0;
+	public int t_origin = 0;
+	public int null_c = 1;
+
+	public boolean in_main = false;
 
 	public int branch_label = 0;
 
@@ -57,15 +63,34 @@ class Translate extends DepthFirstVisitor{
 	}
 	
 	public void visit(MainClass n){
+
+		in_main = true;
+
 		System.out.println("func Main()");
 		indent.incScope();
 		indent.printIdent();
 		int allc = returnFieldNum(names.f_alloc.get(0));
 		//System.out.println("here " + h_alloc);
-		System.out.println("t.0 = HeapAllocZ(" + (allc*4+4) + ")");
-		//indent.printIdent();
+		System.out.println("t." + t_num + " = HeapAllocZ(" + (allc*4+4) + ")");
+		indent.printIdent();
 		//System.out.println(names.alloc);
 		
+		System.out.println("[t." + t_num + "] = :vmt_" + names.f_alloc.get(0));
+		
+		indent.printIdent();
+		System.out.println("if t." + t_num + " goto :null" + null_c);
+		indent.printIdent();
+		System.out.println("Error(\"null pointer\")");
+		indent.printIdent();
+		System.out.println("null" + null_c + ":");	
+
+		//statement = "t." + t_num;
+		
+		null_c++;
+		//t_num++;
+
+		//statement = "t." + t_num;
+
 		n.f0.accept(this);
 		n.f1.accept(this);
 		
@@ -83,6 +108,10 @@ class Translate extends DepthFirstVisitor{
 		n.f13.accept(this);
 		n.f14.accept(this);
 		n.f15.accept(this);
+
+		t_num++;
+
+		
 		//System.out.println(statement);
 		n.f16.accept(this);
 		n.f17.accept(this);
@@ -91,7 +120,25 @@ class Translate extends DepthFirstVisitor{
 		System.out.println();
 
 		indent.decScope();
+	
+		t_num = 0;
+		in_main = false;
 		
+	}
+
+	public void visit(PrintStatement n){
+
+		n.f0.accept(this);
+		n.f1.accept(this);
+		n.f2.accept(this);
+		n.f3.accept(this);
+		n.f4.accept(this);
+		
+		//t_num++;
+
+		indent.printIdent();
+		System.out.println("PrintIntS(t." + t_num  + ")");
+
 	}
 
 	public void visit(CompareExpression n) {
@@ -101,15 +148,22 @@ class Translate extends DepthFirstVisitor{
 		n.f0.accept(this);
 
 		comp1 = statement;
+		
+		//if(!in_main){
+		//	statement = "";
+		//}
 		statement = "";
-
 		n.f1.accept(this);
 		n.f2.accept(this);
-		
+	
+		//statement = "";	
 		comp2 = statement;
 		indent.printIdent();
-		System.out.println("t.0 = LtS(" + comp1 + " " + comp2 + ")");	
-		statement = "";
+		System.out.println("t." + t_num + " = LtS(" + comp1 + " " + comp2 + ")");
+		
+		if(!in_main){
+			statement = "";
+		}
 	}
 	
 	public void visit(IfStatement n){//translates if-statements
@@ -185,16 +239,26 @@ class Translate extends DepthFirstVisitor{
 		System.out.println("ret " + statement);
 		statement = "";
 		indent.decScope();
+
+		t_num = 0;
 	}
 
 	public void visit(Identifier n){//assigning an identifier for translation
 		n.f0.accept(this);
-		statement = statement + n.f0.toString();
+		if(in_main){
+			statement = "t." + t_num ;
+		}else{
+			statement = statement + n.f0.toString();
+		}
 	}
 	
 	public void visit(IntegerLiteral n){//assigning a number for translation
 		n.f0.accept(this);
-		statement = statement + n.f0.toString();
+		if(!in_main) {
+			statement = statement + n.f0.toString();
+		} else{
+			statement = n.f0.toString();
+		}
 	} 
 		
 	public void visit(AssignmentStatement n){
@@ -217,21 +281,29 @@ class Translate extends DepthFirstVisitor{
 	
 		//statement = "";	
 		indent.printIdent();
-		System.out.println("t.1 = [" + statement + "]");
 		t_call = statement;
-		statement = "";
+		t_num++;
+		t_origin = t_num;
+		System.out.println("t." + t_num + " = [" + statement + "]");
+		//t_call = statement;
+		//statement = "";
 		indent.printIdent();
-		System.out.println("t.1 = [t.1+0]");
+		System.out.println("t." + t_num + " = [t." + t_num + "+0]");
 
+		t_num++;
+		statement = "";
 		n.f2.accept(this);
 		n.f3.accept(this);
 		n.f4.accept(this);
 		n.f5.accept(this);
 		
-		statement = "";
+		//if(!in_main){
+		//statement = "";
+		//}
+		//t_num++;
 		indent.printIdent();
-		System.out.println("t." + (t_num+1) + " = call t.1(" + t_call +
-		" t." + (t_num) + ")");
+		System.out.println("t." + (t_num+1) + " = call t." + (t_origin) +"(" + t_call + 
+		" "+ statement + ")");
 
 
 			
@@ -248,8 +320,10 @@ class Translate extends DepthFirstVisitor{
 
 		indent.printIdent();
 		System.out.println(mult + " t." + (t_num+1) + ")");  
-		statement = "";
-		
+
+		if(!in_main){
+			statement = "";
+		}
 		
 	}
 	
@@ -259,7 +333,7 @@ class Translate extends DepthFirstVisitor{
 	}
 
 	public void visit(MinusExpression n){
-		t_num++;
+		//t_num++;
 		statement = "t." + t_num + " = Sub(";
 
 		n.f0.accept(this);
@@ -273,6 +347,7 @@ class Translate extends DepthFirstVisitor{
 		
 		indent.printIdent();
 		System.out.println(statement);
+		statement = "t." + t_num;
 	}
 
 	public void start(BufferedReader in){
