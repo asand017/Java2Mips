@@ -49,22 +49,22 @@ func BBS.Sort(this )
 	aux02 = Sub(0 t.9)
 	aux02 = Sub(01
 	t.9 = LtS(aux02 i)
-	while2_top:
+	while1_top:
 	t.9 = [this+8]
-	if1t.10goto :while1_end
+	if1 t.9 goto :while1_end
 		j = 1
-		t.10 = Add(i 1)
-		t.11 = LtS(j t.10)
-		while3_top:
-		t.11 = [this+8]
-		if2t.12goto :while2_end
-			aux07 = Sub(j t.12)
+		t.9 = Add(i 1)
+		t.10 = LtS(j t.9)
+		while2_top:
+		t.10 = [this+8]
+		if2 t.10 goto :while2_end
+			aux07 = Sub(j t.10)
 			aux07 = Sub(j1
 			aux04 = numberaux07
 			aux05 = numberj
-			t.12 = LtS(aux05 aux04)
-			if2 t.12 goto :if3_else
-				aux06 = Sub(j t.12)
+			t.10 = LtS(aux05 aux04)
+			if2 t.10 goto :if3_else
+				aux06 = Sub(j t.10)
 				aux06 = Sub(j1
 				t = numberaux06
 				t = numberaux06numberaux06numberjnumberjt
@@ -72,10 +72,10 @@ func BBS.Sort(this )
 			if3_else:
 				nt = 0
 			if3_end:
-			j = Add(j t.12)
+			j = Add(j t.10)
 			j = Add(j1
 		while2_end:
-		i = Sub(i t.12)
+		i = Sub(i t.10)
 		i = Sub(i1
 	while1_end:
 	ret 0
@@ -83,11 +83,11 @@ func BBS.Print(this )
 	t.0 = j
 	j = 0
 	t.1 = LtS(j size)
-	while4_top:
+	while3_top:
 	t.1 = [this+8]
-	if4t.2goto :while3_end
-		PrintIntS(t.2)
-		j = Add(j t.2)
+	if4 t.1 goto :while3_end
+		PrintIntS(t.1)
+		j = Add(j t.1)
 		j = Add(j1
 	while3_end:
 	ret 0

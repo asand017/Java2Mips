@@ -1,5 +1,5 @@
 --- ./Phase2Tester/SelfTestCases/MoreThan4.out	2011-04-28 14:55:20.000000000 -0700
-+++ ./Phase2Tester/Output/Tests/MoreThan4.out	2017-05-21 21:24:00.684005424 -0700
++++ ./Phase2Tester/Output/Tests/MoreThan4.out	2017-05-21 21:54:36.647001739 -0700
 @@ -1,13 +1,4 @@
 -1
 -2

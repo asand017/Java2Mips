@@ -162,48 +162,48 @@ func List.Delete(this Elemente)
 	prev = this
 	var_end = end
 	var_elem = elem
-	while2_top:
+	while1_top:
 	t.9 = [this+8]
-	if8t.10goto :while1_end
-		t.11 = [e]
-		t.11 = [t.11+0]
-		t.12 = call t.11(e var_elem)
-		if8 t.12 goto :if9_else
-			t.12 = LtS(aux04 0)
-			if9 t.12 goto :if10_else
-				t.13 = [aux01]
-				t.13 = [t.13+0]
-				t.14 = call t.13(aux01)
+	if8 t.9 goto :while1_end
+		t.10 = [e]
+		t.10 = [t.10+0]
+		t.11 = call t.10(e var_elem)
+		if8 t.11 goto :if9_else
+			t.11 = LtS(aux04 0)
+			if9 t.11 goto :if10_else
+				t.12 = [aux01]
+				t.12 = [t.12+0]
+				t.13 = call t.12(aux01)
 				
 				goto :if10_end
 			if10_else:
-				t.14 = Sub(0 555)
-				PrintIntS(t.15)
-				t.16 = [prev]
-				t.16 = [t.16+0]
-				t.18 = [aux01]
-				t.18 = [t.18+0]
-				t.19 = call t.18(aux01)
-				t.19 = call t.18(prev)
-				t.19 = Sub(0 555)
-				PrintIntS(t.20)
+				t.13 = Sub(0 555)
+				PrintIntS(t.14)
+				t.15 = [prev]
+				t.15 = [t.15+0]
+				t.17 = [aux01]
+				t.17 = [t.17+0]
+				t.18 = call t.17(aux01)
+				t.18 = call t.17(prev)
+				t.18 = Sub(0 555)
+				PrintIntS(t.19)
 			if10_end:
-			t.19
+			t.18
 			goto :if9_end
 		if9_else:
 			nt = 0
 		if9_end:
-		if10 t.20 goto :if11_else
+		if10 t.19 goto :if11_else
 			prev = aux01
-			t.21 = [aux01]
-			t.21 = [t.21+0]
-			t.22 = call t.21(aux01)
-			t.23 = [aux01]
-			t.23 = [t.23+0]
-			t.24 = call t.23(aux01)
-			t.25 = [aux01]
-			t.25 = [t.25+0]
-			t.26 = call t.25(aux01)
+			t.20 = [aux01]
+			t.20 = [t.20+0]
+			t.21 = call t.20(aux01)
+			t.22 = [aux01]
+			t.22 = [t.22+0]
+			t.23 = call t.22(aux01)
+			t.24 = [aux01]
+			t.24 = [t.24+0]
+			t.25 = call t.24(aux01)
 			aux04 = 1
 			aux04 = 1
 			goto :if11_end
@@ -222,27 +222,27 @@ func List.Search(this Elemente)
 	aux01 = this
 	var_end = end
 	var_elem = elem
-	while3_top:
+	while2_top:
 	t.5 = [this+8]
-	if12t.6goto :while2_end
-		t.7 = [e]
-		t.7 = [t.7+0]
-		t.8 = call t.7(e var_elem)
-		if12 t.8 goto :if13_else
+	if12 t.5 goto :while2_end
+		t.6 = [e]
+		t.6 = [t.6+0]
+		t.7 = call t.6(e var_elem)
+		if12 t.7 goto :if13_else
 			int_ret_val = 1
 			goto :if13_end
 		if13_else:
 			nt = 0
 		if13_end:
-		t.9 = [aux01]
-		t.9 = [t.9+0]
-		t.10 = call t.9(aux01)
-		t.11 = [aux01]
-		t.11 = [t.11+0]
-		t.12 = call t.11(aux01)
-		t.13 = [aux01]
-		t.13 = [t.13+0]
-		t.14 = call t.13(aux01)
+		t.8 = [aux01]
+		t.8 = [t.8+0]
+		t.9 = call t.8(aux01)
+		t.10 = [aux01]
+		t.10 = [t.10+0]
+		t.11 = call t.10(aux01)
+		t.12 = [aux01]
+		t.12 = [t.12+0]
+		t.13 = call t.12(aux01)
 	while2_end:
 	ret int_ret_val
 func List.GetEnd(this )
@@ -258,22 +258,22 @@ func List.Print(this )
 	aux01 = this
 	var_end = end
 	var_elem = elem
-	while4_top:
+	while3_top:
 	t.3 = [this+8]
-	if14t.4goto :while3_end
-		t.5 = [var_elem]
-		t.5 = [t.5+0]
-		t.6 = call t.5(var_elem)
-		PrintIntS(t.6)
-		t.7 = [aux01]
-		t.7 = [t.7+0]
-		t.8 = call t.7(aux01)
-		t.9 = [aux01]
-		t.9 = [t.9+0]
-		t.10 = call t.9(aux01)
-		t.11 = [aux01]
-		t.11 = [t.11+0]
-		t.12 = call t.11(aux01)
+	if14 t.3 goto :while3_end
+		t.4 = [var_elem]
+		t.4 = [t.4+0]
+		t.5 = call t.4(var_elem)
+		PrintIntS(t.5)
+		t.6 = [aux01]
+		t.6 = [t.6+0]
+		t.7 = call t.6(aux01)
+		t.8 = [aux01]
+		t.8 = [t.8+0]
+		t.9 = call t.8(aux01)
+		t.10 = [aux01]
+		t.10 = [t.10+0]
+		t.11 = call t.10(aux01)
 	while3_end:
 	ret 1
 func LL.Start(this )

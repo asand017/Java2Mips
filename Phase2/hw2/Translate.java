@@ -243,12 +243,12 @@ class Translate extends DepthFirstVisitor{
 		n.f2.accept(this);
 
 		indent.printIdent();
-		System.out.println("while" + while_label + "_top:");
+		System.out.println("while" + current_label + "_top:");
 		indent.printIdent();
 		System.out.println("t." + t_num + " = [this+8]");
-		t_num++;
+		//t_num++;
 		indent.printIdent();
-		System.out.println("if" + current_branch + "t." + t_num + "goto :while" +
+		System.out.println("if" + current_branch + " t." + t_num + " goto :while" +
 		current_label + "_end");
 
 		n.f3.accept(this);

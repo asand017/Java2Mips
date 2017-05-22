@@ -53,18 +53,18 @@ func QS.Sort(this leftright)
 		i = Sub(left1
 		j = right
 		cont01 = 1
-		while2_top:
+		while1_top:
 		t.8 = [this+8]
-		if2t.9goto :while1_end
+		if2 t.8 goto :while1_end
 			cont02 = 1
-			while3_top:
-			t.9 = [this+8]
-			if3t.10goto :while2_end
-				i = Add(i t.10)
+			while2_top:
+			t.8 = [this+8]
+			if3 t.8 goto :while2_end
+				i = Add(i t.8)
 				i = Add(i1
 				aux03 = numberi
-				t.10 = LtS(aux03 v)
-				if3 t.10 goto :if4_else
+				t.8 = LtS(aux03 v)
+				if3 t.8 goto :if4_else
 					cont02 = 0
 					cont02 = 0
 					goto :if4_end
@@ -73,14 +73,14 @@ func QS.Sort(this leftright)
 				if4_end:
 			while2_end:
 			cont02 = 1
-			while4_top:
-			t.10 = [this+8]
-			if5t.11goto :while3_end
-				j = Sub(j t.11)
+			while3_top:
+			t.8 = [this+8]
+			if5 t.8 goto :while3_end
+				j = Sub(j t.8)
 				j = Sub(j1
 				aux03 = numberj
-				t.11 = LtS(v aux03)
-				if5 t.11 goto :if6_else
+				t.8 = LtS(v aux03)
+				if5 t.8 goto :if6_else
 					cont02 = 0
 					cont02 = 0
 					goto :if6_end
@@ -89,9 +89,9 @@ func QS.Sort(this leftright)
 				if6_end:
 			while3_end:
 			t = numberi
-			t.11 = Add(i 1)
-			t.12 = LtS(j t.11)
-			if6 t.12 goto :if7_else
+			t.8 = Add(i 1)
+			t.9 = LtS(j t.8)
+			if6 t.9 goto :if7_else
 				cont01 = 0
 				cont01 = 0
 				goto :if7_end
@@ -99,15 +99,15 @@ func QS.Sort(this leftright)
 				cont01 = 1
 			if7_end:
 		while1_end:
-		t.13 = [this]
-		t.13 = [t.13+0]
-		leftSub(i t.14)
-		t.14 = call t.13(this leftSub(i1)
-		t.15 = [this]
-		t.15 = [t.15+0]
-		t.16 = Add(i 1)
-		t.17 = call t.15(this t.16right)
-		t.16right
+		t.10 = [this]
+		t.10 = [t.10+0]
+		leftSub(i t.11)
+		t.11 = call t.10(this leftSub(i1)
+		t.12 = [this]
+		t.12 = [t.12+0]
+		t.13 = Add(i 1)
+		t.14 = call t.12(this t.13right)
+		t.13right
 		goto :if1_end
 	if1_else:
 		nt = 0
@@ -117,11 +117,11 @@ func QS.Print(this )
 	t.0 = j
 	j = 0
 	t.1 = LtS(j size)
-	while5_top:
+	while4_top:
 	t.1 = [this+8]
-	if8t.2goto :while4_end
-		PrintIntS(t.2)
-		j = Add(j t.2)
+	if8 t.1 goto :while4_end
+		PrintIntS(t.1)
+		j = Add(j t.1)
 		j = Add(j1
 	while4_end:
 	ret 0
