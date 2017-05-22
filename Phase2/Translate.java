@@ -175,7 +175,7 @@ class Translate extends DepthFirstVisitor{
 		n.f2.accept(this);
 		
 		indent.printIdent();
-		System.out.println("if" + branch_label + " t0 goto :if"
+		System.out.println("if" + branch_label + " t." + t_num + " goto :if"
 		+ (branch_label+1) + "_else"); 
 		branch_label++;
 		indent.incScope();
@@ -291,10 +291,13 @@ class Translate extends DepthFirstVisitor{
 		System.out.println("t." + t_num + " = [t." + t_num + "+0]");
 
 		t_num++;
+		
 		statement = "";
 		n.f2.accept(this);
+		statement = "";
 		n.f3.accept(this);
 		n.f4.accept(this);
+		//statement = "";
 		n.f5.accept(this);
 		
 		//if(!in_main){
@@ -302,7 +305,7 @@ class Translate extends DepthFirstVisitor{
 		//}
 		//t_num++;
 		indent.printIdent();
-		System.out.println("t." + (t_num+1) + " = call t." + (t_origin) +"(" + t_call + 
+		System.out.println("t." + (t_num) + " = call t." + (t_origin) +"(" + t_call + 
 		" "+ statement + ")");
 
 
@@ -310,7 +313,11 @@ class Translate extends DepthFirstVisitor{
 	}
 
 	public void visit(TimesExpression n){
-		statement = statement + "MulS(";
+		if(statement == "") {
+			statement = statement + "t." + t_num + " = MulS(";
+		}else {
+			statement = statement + "MulS(";
+		}
 		n.f0.accept(this);	
 		n.f1.accept(this);
 
@@ -319,7 +326,7 @@ class Translate extends DepthFirstVisitor{
 		n.f2.accept(this);		
 
 		indent.printIdent();
-		System.out.println(mult + " t." + (t_num+1) + ")");  
+		System.out.println(mult + " t." + (t_num) + ")");  
 
 		if(!in_main){
 			statement = "";
@@ -334,7 +341,11 @@ class Translate extends DepthFirstVisitor{
 
 	public void visit(MinusExpression n){
 		//t_num++;
-		statement = "t." + t_num + " = Sub(";
+		if(statement == ""){
+			statement = statement +"t." + t_num + " = Sub(";
+		} else {
+			statement = statement + "Sub(";
+		}
 
 		n.f0.accept(this);
 		n.f1.accept(this);
@@ -348,6 +359,7 @@ class Translate extends DepthFirstVisitor{
 		indent.printIdent();
 		System.out.println(statement);
 		statement = "t." + t_num;
+		t_num++;
 	}
 
 	public void start(BufferedReader in){
