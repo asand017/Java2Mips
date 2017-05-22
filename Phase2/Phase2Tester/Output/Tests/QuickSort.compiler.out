@@ -1,0 +1,79 @@
+const vmt_QS
+	:QS.Start
+	:QS.Sort
+	:QS.Print
+	:QS.Init
+
+func Main()
+	t.0 = HeapAllocZ(12)
+	[t.0] = :vmt_QS
+	if t.0 goto :null1
+		Error("null pointer")
+	null1:
+	t.1 = [t.0]
+	t.1 = [t.1+0]
+	t.2 = call t.1(t.0 10)
+	PrintIntS(t.2)
+	ret
+
+func QS.Start(this sz)
+	t.1 = [this]
+	t.1 = [t.1+0]
+	t.2 = call t.1(this sz)
+	t.3 = [this]
+	t.3 = [t.3+0]
+	t.4 = call t.3(this)
+	PrintIntS(t.4)
+	9999aux01 = Sub(size t.4)
+	t.5 = [this]
+	t.5 = [t.5+0]
+	t.6 = call t.5(this 0aux01)
+	t.7 = [this]
+	t.7 = [t.7+0]
+	t.8 = call t.7(this)
+	ret 0
+func QS.Sort(this leftright)
+	t.0 = LtS(left right)
+	if0 t.0 goto :if1_else
+		v = numberrighti = Sub(left t.0)
+		v = numberrighti = Sub(left1j = rightcont01 = 1cont01cont02 = 1cont02i = Add(i t.0)
+		t.0 = LtS(aux03 v)
+		if1 t.0 goto :if2_else
+			cont02 = 0
+			goto :if2_end
+		if2_else:
+		if2_end:
+		cont02 = 1cont02 = 1cont02j = Sub(j t.0)
+		t.0 = LtS(v aux03)
+		if2 t.0 goto :if3_else
+			cont02 = 0
+			goto :if3_end
+		if3_else:
+		if3_end:
+		t.0 = Add(i 1)
+		t.1 = LtS(j t.0)
+		if3 t.1 goto :if4_else
+			cont01 = 0
+			goto :if4_end
+		if4_else:
+		if4_end:
+		t.2 = [this]
+		t.2 = [t.2+0]
+		leftSub(i t.3)
+		t.3 = call t.2(this leftSub(i1)
+		t.4 = [this]
+		t.4 = [t.4+0]
+		t.5 = Add(i 1)
+		t.6 = call t.4(this t.5right)
+		t.5right
+		goto :if1_end
+	if1_else:
+	if1_end:
+	ret 0
+func QS.Print(this )
+	t.0 = LtS(jj = 0j size)
+	PrintIntS(numberj)
+	numberjj = Add(j t.0)
+	ret 0
+func QS.Init(this sz)
+	ret 0

@@ -1,0 +1,2 @@
+Note: ./Phase2Tester/Output/Unzipped/hw2/Table.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.

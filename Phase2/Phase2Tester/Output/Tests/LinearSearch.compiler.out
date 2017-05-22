@@ -1,0 +1,74 @@
+const vmt_LS
+	:LS.Start
+	:LS.Print
+	:LS.Search
+	:LS.Init
+
+func Main()
+	t.0 = HeapAllocZ(12)
+	[t.0] = :vmt_LS
+	if t.0 goto :null1
+		Error("null pointer")
+	null1:
+	t.1 = [t.0]
+	t.1 = [t.1+0]
+	t.2 = call t.1(t.0 10)
+	PrintIntS(t.2)
+	ret
+
+func LS.Start(this sz)
+	t.1 = [this]
+	t.1 = [t.1+0]
+	t.2 = call t.1(this sz)
+	t.3 = [this]
+	t.3 = [t.3+0]
+	t.4 = call t.3(this)
+	PrintIntS(t.4)
+	t.5 = [this]
+	t.5 = [t.5+0]
+	t.6 = call t.5(this 8)
+	PrintIntS(t.6)
+	t.7 = [this]
+	t.7 = [t.7+0]
+	t.8 = call t.7(this 12)
+	PrintIntS(t.8)
+	t.9 = [this]
+	t.9 = [t.9+0]
+	t.10 = call t.9(this 17)
+	PrintIntS(t.10)
+	t.11 = [this]
+	t.11 = [t.11+0]
+	t.12 = call t.11(this 50)
+	PrintIntS(t.12)
+	ret 55
+func LS.Print(this )
+	t.0 = LtS(jj = 1j size)
+	PrintIntS(numberj)
+	numberjj = Add(j t.0)
+	ret 0
+func LS.Search(this num)
+	t.0 = LtS(jls01ifoundaux01aux02ntj = 1ls01 = 0ifound = 0j size)
+	aux01 = numberjaux02 = Add(num t.0)
+	t.0 = LtS(aux01 num)
+	if0 t.0 goto :if1_else
+		nt = 0
+		goto :if1_end
+	if1_else:
+		t.0 = LtS(aux01 aux02)
+		if1 t.0 goto :if2_else
+			nt = 0
+			goto :if2_end
+		if2_else:
+		if2_end:
+	if1_end:
+	ls01 = 1ifound = 1j = sizej = Add(j t.0)
+	ret ifound
+func LS.Init(this sz)
+	jkaux01aux02size = sznumber = szj = 1k = Add(size t.0)
+	t.0 = LtS(jkaux01aux02size = sznumber = szj = 1k = Add(size1j size)
+	aux01 = MulS(2 t.0)
+	aux01 = MulS(2jaux02 = Sub(k t.0)
+	aux01 = MulS(2jaux02 = Sub(k3numberjAdd(aux01 t.0)
+	aux01 = MulS(2jaux02 = Sub(k3numberjAdd(aux01aux02j = Add(j t.0)
+	aux01 = MulS(2jaux02 = Sub(k3numberjAdd(aux01aux02j = Add(j1k = Sub(k t.0)
+	ret 0

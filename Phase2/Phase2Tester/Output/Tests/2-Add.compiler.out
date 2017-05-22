@@ -1,0 +1,6 @@
+func Main()
+	x = 12
+	y = Add(x 21)
+	PrintIntS(y)
+	ret
+

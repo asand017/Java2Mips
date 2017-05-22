@@ -1,0 +1,57 @@
+const vmt_BBS
+	:BBS.Start
+	:BBS.Sort
+	:BBS.Print
+	:BBS.Init
+
+func Main()
+	t.0 = HeapAllocZ(12)
+	[t.0] = :vmt_BBS
+	if t.0 goto :null1
+		Error("null pointer")
+	null1:
+	t.1 = [t.0]
+	t.1 = [t.1+0]
+	t.2 = call t.1(t.0 10)
+	PrintIntS(t.2)
+	ret
+
+func BBS.Start(this sz)
+	t.1 = [this]
+	t.1 = [t.1+0]
+	t.2 = call t.1(this sz)
+	t.3 = [this]
+	t.3 = [t.3+0]
+	t.4 = call t.3(this)
+	PrintIntS(t.4)
+	t.5 = [this]
+	t.5 = [t.5+0]
+	t.6 = call t.5(this)
+	t.7 = [this]
+	t.7 = [t.7+0]
+	t.8 = call t.7(this)
+	ret 0
+func BBS.Sort(this )
+	ntiaux02aux04aux05aux06aux07jti = Sub(size t.0)
+	ntiaux02aux04aux05aux06aux07jti = Sub(size1aux02 = Sub(0 t.0)
+	t.0 = LtS(ntiaux02aux04aux05aux06aux07jti = Sub(size1aux02 = Sub(01aux02 i)
+	t.0 = Add(i 1)
+	t.1 = LtS(j = 1j t.0)
+	aux07 = Sub(j t.1)
+	t.1 = LtS(aux05 aux04)
+	if0 t.1 goto :if1_else
+		aux06 = Sub(j t.1)
+		aux06 = Sub(j1t = numberaux06numberaux06numberjnumberjt
+		goto :if1_end
+	if1_else:
+	if1_end:
+	nt = 0j = Add(j t.1)
+	nt = 0j = Add(j1i = Sub(i t.1)
+	ret 0
+func BBS.Print(this )
+	t.0 = LtS(jj = 0j size)
+	PrintIntS(numberj)
+	numberjj = Add(j t.0)
+	ret 0
+func BBS.Init(this sz)
+	ret 0

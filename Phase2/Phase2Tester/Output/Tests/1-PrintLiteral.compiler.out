@@ -1,0 +1,5 @@
+func Main()
+	x = 12
+	PrintIntS(x)
+	ret
+

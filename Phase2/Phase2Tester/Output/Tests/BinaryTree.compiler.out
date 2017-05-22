@@ -1,0 +1,426 @@
+const vmt_BT
+	:BT.Start
+
+const vmt_Tree
+	:Tree.Init
+	:Tree.SetRight
+	:Tree.SetLeft
+	:Tree.GetRight
+	:Tree.GetLeft
+	:Tree.GetKey
+	:Tree.SetKey
+	:Tree.GetHas_Right
+	:Tree.GetHas_Left
+	:Tree.SetHas_Left
+	:Tree.SetHas_Right
+	:Tree.Compare
+	:Tree.Insert
+	:Tree.Delete
+	:Tree.Remove
+	:Tree.RemoveRight
+	:Tree.RemoveLeft
+	:Tree.Search
+	:Tree.Print
+	:Tree.RecPrint
+
+func Main()
+	t.0 = HeapAllocZ(4)
+	[t.0] = :vmt_BT
+	if t.0 goto :null1
+		Error("null pointer")
+	null1:
+	t.1 = [t.0]
+	t.1 = [t.1+0]
+	t.2 = call t.1(t.0)
+	PrintIntS(t.2)
+	ret
+
+func BT.Start(this )
+	t.1 = [root]
+	t.1 = [t.1+0]
+	t.2 = call t.1(root 16)
+	t.3 = [root]
+	t.3 = [t.3+0]
+	t.4 = call t.3(root)
+	PrintIntS(t.4)
+	t.5 = [root]
+	t.5 = [t.5+0]
+	t.6 = call t.5(root 8)
+	t.7 = [root]
+	t.7 = [t.7+0]
+	t.8 = call t.7(root)
+	t.9 = [root]
+	t.9 = [t.9+0]
+	t.10 = call t.9(root 24)
+	t.11 = [root]
+	t.11 = [t.11+0]
+	t.12 = call t.11(root 4)
+	t.13 = [root]
+	t.13 = [t.13+0]
+	t.14 = call t.13(root 12)
+	t.15 = [root]
+	t.15 = [t.15+0]
+	t.16 = call t.15(root 20)
+	t.17 = [root]
+	t.17 = [t.17+0]
+	t.18 = call t.17(root 28)
+	t.19 = [root]
+	t.19 = [t.19+0]
+	t.20 = call t.19(root 14)
+	t.21 = [root]
+	t.21 = [t.21+0]
+	t.22 = call t.21(root)
+	t.23 = [root]
+	t.23 = [t.23+0]
+	t.24 = call t.23(root 24)
+	PrintIntS(t.24)
+	t.25 = [root]
+	t.25 = [t.25+0]
+	t.26 = call t.25(root 12)
+	PrintIntS(t.26)
+	t.27 = [root]
+	t.27 = [t.27+0]
+	t.28 = call t.27(root 16)
+	PrintIntS(t.28)
+	t.29 = [root]
+	t.29 = [t.29+0]
+	t.30 = call t.29(root 50)
+	PrintIntS(t.30)
+	t.31 = [root]
+	t.31 = [t.31+0]
+	t.32 = call t.31(root 12)
+	PrintIntS(t.32)
+	t.33 = [root]
+	t.33 = [t.33+0]
+	t.34 = call t.33(root 12)
+	t.35 = [root]
+	t.35 = [t.35+0]
+	t.36 = call t.35(root)
+	t.37 = [root]
+	t.37 = [t.37+0]
+	t.38 = call t.37(root 12)
+	PrintIntS(t.38)
+	ret 0
+func Tree.Init(this v_key)
+	ret 1
+func Tree.SetRight(this Treern)
+	ret 1
+func Tree.SetLeft(this Treeln)
+	ret 1
+func Tree.GetRight(this )
+	ret right
+func Tree.GetLeft(this )
+	ret left
+func Tree.GetKey(this )
+	ret key
+func Tree.SetKey(this v_key)
+	ret 1
+func Tree.GetHas_Right(this )
+	ret has_right
+func Tree.GetHas_Left(this )
+	ret has_left
+func Tree.SetHas_Left(this val)
+	ret 1
+func Tree.SetHas_Right(this val)
+	ret 1
+func Tree.Compare(this num1num2)
+	ntbntintb = 0nti = Add(num2 t.0)
+	t.0 = LtS(num1 num2)
+	if0 t.0 goto :if1_else
+		ntb = 0
+		goto :if1_end
+	if1_else:
+		t.0 = LtS(num1 nti)
+		if1 t.0 goto :if2_else
+			ntb = 0
+			goto :if2_end
+		if2_else:
+		if2_end:
+	if1_end:
+	ret ntb
+func Tree.Insert(this v_key)
+	t.1 = [new_node]
+	t.1 = [t.1+0]
+	t.2 = call t.1(new_node v_key)
+	t.3 = [current_node]
+	t.3 = [t.3+0]
+	t.4 = call t.3(current_node)
+	t.4 = LtS(v_key key_aux)
+	if2 t.4 goto :if3_else
+		t.5 = [current_node]
+		t.5 = [t.5+0]
+		t.6 = call t.5(current_node)
+		if3 t.6 goto :if4_else
+			t.7 = [current_node]
+			t.7 = [t.7+0]
+			t.8 = call t.7(current_node)
+			
+			goto :if4_end
+		if4_else:
+			t.9 = [current_node]
+			t.9 = [t.9+0]
+			t.10 = call t.9(current_node 1)
+			t.11 = [current_node]
+			t.11 = [t.11+0]
+			t.12 = call t.11(current_node new_node)
+		if4_end:
+		new_node
+		goto :if3_end
+	if3_else:
+		t.13 = [current_node]
+		t.13 = [t.13+0]
+		t.14 = call t.13(current_node)
+		if4 t.14 goto :if5_else
+			t.15 = [current_node]
+			t.15 = [t.15+0]
+			t.16 = call t.15(current_node)
+			
+			goto :if5_end
+		if5_else:
+			t.17 = [current_node]
+			t.17 = [t.17+0]
+			t.18 = call t.17(current_node 1)
+			t.19 = [current_node]
+			t.19 = [t.19+0]
+			t.20 = call t.19(current_node new_node)
+		if5_end:
+	if3_end:
+	ret 1
+func Tree.Delete(this v_key)
+	t.1 = [current_node]
+	t.1 = [t.1+0]
+	t.2 = call t.1(current_node)
+	t.2 = LtS(v_key key_aux)
+	if5 t.2 goto :if6_else
+		t.3 = [current_node]
+		t.3 = [t.3+0]
+		t.4 = call t.3(current_node)
+		if6 t.4 goto :if7_else
+			t.5 = [current_node]
+			t.5 = [t.5+0]
+			t.6 = call t.5(current_node)
+			
+			goto :if7_end
+		if7_else:
+		if7_end:
+		cont = 0
+		goto :if6_end
+	if6_else:
+		t.6 = LtS(key_aux v_key)
+		if7 t.6 goto :if8_else
+			t.7 = [current_node]
+			t.7 = [t.7+0]
+			t.8 = call t.7(current_node)
+			if8 t.8 goto :if9_else
+				t.9 = [current_node]
+				t.9 = [t.9+0]
+				t.10 = call t.9(current_node)
+				
+				goto :if9_end
+			if9_else:
+			if9_end:
+			cont = 0
+			goto :if8_end
+		if8_else:
+			if9 t.10 goto :if10_else
+				t.11 = [current_node]
+				t.11 = [t.11+0]
+				t.12 = call t.11(current_node)
+				t.13 = [current_node]
+				t.13 = [t.13+0]
+				t.14 = call t.13(current_node)
+				if10 t.14 goto :if11_else
+					ntb = 1
+					goto :if11_end
+				if11_else:
+					t.15 = [this]
+					t.15 = [t.15+0]
+					t.16 = call t.15(this parent_nodecurrent_node)
+				if11_end:
+				parent_nodecurrent_node
+				goto :if10_end
+			if10_else:
+				t.17 = [this]
+				t.17 = [t.17+0]
+				t.18 = call t.17(this parent_nodecurrent_node)
+			if10_end:
+		if8_end:
+	if6_end:
+	ret found
+func Tree.Remove(this Treep_nodeTreec_node)
+	t.1 = [c_node]
+	t.1 = [t.1+0]
+	t.2 = call t.1(c_node)
+	if11 t.2 goto :if12_else
+		t.3 = [this]
+		t.3 = [t.3+0]
+		t.4 = call t.3(this p_nodec_node)
+		p_nodec_node
+		goto :if12_end
+	if12_else:
+		t.5 = [c_node]
+		t.5 = [t.5+0]
+		t.6 = call t.5(c_node)
+		if12 t.6 goto :if13_else
+			t.7 = [this]
+			t.7 = [t.7+0]
+			t.8 = call t.7(this p_nodec_node)
+			p_nodec_node
+			goto :if13_end
+		if13_else:
+			t.9 = [c_node]
+			t.9 = [t.9+0]
+			t.10 = call t.9(c_node)
+			t.11 = [p_node]
+			t.11 = [t.11+0]
+			t.12 = call t.11(p_node)
+			t.13 = []
+			t.13 = [t.13+0]
+			t.14 = call t.13()
+			t.15 = [this]
+			t.15 = [t.15+0]
+			t.16 = call t.15(this auxkey1auxkey2)
+			if13 t.16 goto :if14_else
+				t.17 = [p_node]
+				t.17 = [t.17+0]
+				t.18 = call t.17(p_node my_null)
+				t.19 = [p_node]
+				t.19 = [t.19+0]
+				t.20 = call t.19(p_node 0)
+				0
+				goto :if14_end
+			if14_else:
+				t.21 = [p_node]
+				t.21 = [t.21+0]
+				t.22 = call t.21(p_node my_null)
+				t.23 = [p_node]
+				t.23 = [t.23+0]
+				t.24 = call t.23(p_node 0)
+			if14_end:
+		if13_end:
+	if12_end:
+	ret 1
+func Tree.RemoveRight(this Treep_nodeTreec_node)
+	t.1 = [c_node]
+	t.1 = [t.1+0]
+	t.2 = call t.1(c_node)
+	t.3 = [c_node]
+	t.3 = [t.3+0]
+	t.5 = [c_node]
+	t.5 = [t.5+0]
+	t.6 = call t.5(c_node)
+	t.7 = []
+	t.7 = [t.7+0]
+	t.8 = call t.7()
+	t.8 = call t.7(c_node)
+	t.9 = [c_node]
+	t.9 = [t.9+0]
+	t.10 = call t.9(c_node)
+	t.11 = [p_node]
+	t.11 = [t.11+0]
+	t.12 = call t.11(p_node my_null)
+	t.13 = [p_node]
+	t.13 = [t.13+0]
+	t.14 = call t.13(p_node 0)
+	ret 1
+func Tree.RemoveLeft(this Treep_nodeTreec_node)
+	t.1 = [c_node]
+	t.1 = [t.1+0]
+	t.2 = call t.1(c_node)
+	t.3 = [c_node]
+	t.3 = [t.3+0]
+	t.5 = [c_node]
+	t.5 = [t.5+0]
+	t.6 = call t.5(c_node)
+	t.7 = []
+	t.7 = [t.7+0]
+	t.8 = call t.7()
+	t.8 = call t.7(c_node)
+	t.9 = [c_node]
+	t.9 = [t.9+0]
+	t.10 = call t.9(c_node)
+	t.11 = [p_node]
+	t.11 = [t.11+0]
+	t.12 = call t.11(p_node my_null)
+	t.13 = [p_node]
+	t.13 = [t.13+0]
+	t.14 = call t.13(p_node 0)
+	ret 1
+func Tree.Search(this v_key)
+	t.1 = [current_node]
+	t.1 = [t.1+0]
+	t.2 = call t.1(current_node)
+	t.2 = LtS(v_key key_aux)
+	if14 t.2 goto :if15_else
+		t.3 = [current_node]
+		t.3 = [t.3+0]
+		t.4 = call t.3(current_node)
+		if15 t.4 goto :if16_else
+			t.5 = [current_node]
+			t.5 = [t.5+0]
+			t.6 = call t.5(current_node)
+			
+			goto :if16_end
+		if16_else:
+		if16_end:
+		cont = 0
+		goto :if15_end
+	if15_else:
+		t.6 = LtS(key_aux v_key)
+		if16 t.6 goto :if17_else
+			t.7 = [current_node]
+			t.7 = [t.7+0]
+			t.8 = call t.7(current_node)
+			if17 t.8 goto :if18_else
+				t.9 = [current_node]
+				t.9 = [t.9+0]
+				t.10 = call t.9(current_node)
+				
+				goto :if18_end
+			if18_else:
+			if18_end:
+			cont = 0
+			goto :if17_end
+		if17_else:
+		if17_end:
+	if15_end:
+	ret ifound
+func Tree.Print(this )
+	t.1 = [this]
+	t.1 = [t.1+0]
+	t.2 = call t.1(this current_node)
+	ret 1
+func Tree.RecPrint(this Treenode)
+	t.1 = [node]
+	t.1 = [t.1+0]
+	t.2 = call t.1(node)
+	if18 t.2 goto :if19_else
+		t.3 = [this]
+		t.3 = [t.3+0]
+		t.5 = [node]
+		t.5 = [t.5+0]
+		t.6 = call t.5(node)
+		t.6 = call t.5(this)
+		
+		goto :if19_end
+	if19_else:
+	if19_end:
+	t.7 = [node]
+	t.7 = [t.7+0]
+	t.8 = call t.7(node)
+	PrintIntS(t.8)
+	t.9 = [node]
+	t.9 = [t.9+0]
+	t.10 = call t.9(node)
+	if19 t.10 goto :if20_else
+		t.11 = [this]
+		t.11 = [t.11+0]
+		t.13 = [node]
+		t.13 = [t.13+0]
+		t.14 = call t.13(node)
+		t.14 = call t.13(this)
+		
+		goto :if20_end
+	if20_else:
+	if20_end:
+	ret 1

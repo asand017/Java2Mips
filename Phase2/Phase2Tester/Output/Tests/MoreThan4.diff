@@ -1,0 +1,20 @@
+--- ./Phase2Tester/SelfTestCases/MoreThan4.out	2011-04-28 14:55:20.000000000 -0700
++++ ./Phase2Tester/Output/Tests/MoreThan4.out	2017-05-21 20:20:50.196001759 -0700
+@@ -1,13 +1,4 @@
+-1
+-2
+-3
+-4
+-5
+-6
+-6
+-5
+-4
+-3
+-2
+-1
+-0
++--- Error (ProgramFault) ---
++expecting argument 1 to be an integer, found undefined value
++  Main() line 13
++  MT4.Start(<Heap.0>+0 6) line 18
