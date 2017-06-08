@@ -14,7 +14,7 @@ import java.util.*;
 
 public class V2VM{
 
-	/*public static VaporProgram parseVapor(InputStream in, PrintStream err) throws
+	public static VaporProgram parseVapor(InputStream in, PrintStream err) throws
 	IOException {
 		Op[] ops = {
 			Op.Add, Op.Sub, Op.MulS, Op.Eq, Op.Lt, Op.LtS,
@@ -35,20 +35,18 @@ public class V2VM{
 		}
 
 		return tree;
-	}*/
+	}
 
 	public static void main(String args[]){
 		try{
-
-			String fnam = args[1];
 			//BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			//InputStream in = new FileInputStream(new InputStreamReader(System.in));
+			//InputStreamReader in = new InputStreamReader(System.in);
 
 			PrintStream err = new PrintStream(System.out);
 
-			//parseVapor(new InputStreamReader(System.in), err);
+			parseVapor(System.in, err);
 	
-			System.out.println(fnam);			
+			//System.out.println(fnam);			
 
 		} catch(Exception e){
 			e.printStackTrace();
