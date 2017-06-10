@@ -8,6 +8,7 @@ import cs132.util.ProblemException;
 import cs132.vapor.parser.VaporParser;
 import cs132.vapor.ast.VaporProgram;
 import cs132.vapor.ast.VBuiltIn.Op;
+import cs132.util.CommandLineLauncher.TextOutput;
 
 import java.io.*;
 import java.util.*;
@@ -30,7 +31,7 @@ public class V2VM{
 					   java.util.Arrays.asList(ops),
 					   allowLocals, registers, allowStack);
 
-			
+			System.out.println(in);	
 			
 		}catch (ProblemException ex) {
 			err.println(ex.getMessage());
@@ -49,7 +50,7 @@ public class V2VM{
 
 			VaporProgram parse = parseVapor(System.in, err);
 
-			System.out.println(parse.allowStack);			
+			System.out.println(parse.allowLocals);			
 
 		} catch(Exception e){
 			e.printStackTrace();
