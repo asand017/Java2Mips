@@ -29,6 +29,9 @@ public class V2VM{
 			tree = VaporParser.run(new InputStreamReader(in), 1, 1,
 					   java.util.Arrays.asList(ops),
 					   allowLocals, registers, allowStack);
+
+			
+			
 		}catch (ProblemException ex) {
 			err.println(ex.getMessage());
 			return null;
@@ -44,9 +47,9 @@ public class V2VM{
 
 			PrintStream err = new PrintStream(System.out);
 
-			parseVapor(System.in, err);
-	
-			//System.out.println(fnam);			
+			VaporProgram parse = parseVapor(System.in, err);
+
+			System.out.println(parse.allowStack);			
 
 		} catch(Exception e){
 			e.printStackTrace();
