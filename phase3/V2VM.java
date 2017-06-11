@@ -17,7 +17,11 @@ import java.util.*;
 
 public class V2VM{
 
+	public static ArrayList<String> locals = new ArrayList<String>();
+
 	public static int num_blanks = 0;
+
+	public static int local_var = 0;
 
 	public static VaporProgram parseVapor(InputStream in, PrintStream err) throws
 	IOException {
@@ -76,22 +80,54 @@ public class V2VM{
 				}
 				num_blanks--;
 			}
-			print("");
+			//print("");
 
 			for(VFunction funcs : parse.functions){ //visit each function
+				System.out.println();		
 				
 				System.out.print("func " + funcs.ident + " ");			
 	
-				System.out.println("[in " + funcs.stack.in + ", out " + funcs.stack.out +
-					", local " + funcs.stack.local + "]");
-			
+				//System.out.println("[in " + funcs.stack.in + ", out " + funcs.stack.out +
+				//	", local " + funcs.stack.local + "]");
+
+				boolean match = false;			
 				num_blanks++;	
 				for(int i = 0; i < funcs.vars.length; i++){
-					print(funcs.vars[i]);
+					for(int y = 0; y < funcs.params.length; y++){
+						if(funcs.vars[i] == funcs.params[y].toString()){
+							match = true;
+						} 
+					}
+
+					if(funcs.vars[i].length() > 1){
+						if(funcs.vars[i].charAt(0) == 't' && funcs.vars[i].charAt(1) == '.'){
+							match = true;
+						}
+					}
+
+					if(!match){
+						if(!locals.contains(funcs.vars[i])){
+							locals.add(funcs.vars[i]);
+							local_var++;
+						}
+					}
+					
+					match = false;
+
+					
 				}
 				num_blanks--;
 
-				System.out.println();
+				System.out.println("[in " + funcs.stack.in + ", out " + funcs.stack.out +
+					", local " + (funcs.stack.local + local_var) + "]");
+
+				
+				if(!locals.isEmpty()){
+					System.out.println(locals);
+				}
+
+				locals.clear();
+				local_var = 0;
 			}
 
 		} catch(Exception e){
