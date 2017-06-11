@@ -78,7 +78,21 @@ public class V2VM{
 			}
 			print("");
 
+			for(VFunction funcs : parse.functions){ //visit each function
+				
+				System.out.print("func " + funcs.ident + " ");			
+	
+				System.out.println("[in " + funcs.stack.in + ", out " + funcs.stack.out +
+					", local " + funcs.stack.local + "]");
+			
+				num_blanks++;	
+				for(int i = 0; i < funcs.vars.length; i++){
+					print(funcs.vars[i]);
+				}
+				num_blanks--;
 
+				System.out.println();
+			}
 
 		} catch(Exception e){
 			e.printStackTrace();
