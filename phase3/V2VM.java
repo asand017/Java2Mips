@@ -9,11 +9,15 @@ import cs132.vapor.parser.VaporParser;
 import cs132.vapor.ast.VaporProgram;
 import cs132.vapor.ast.VBuiltIn.Op;
 import cs132.util.CommandLineLauncher.TextOutput;
+import cs132.util.*;
+import cs132.vapor.ast.*;
 
 import java.io.*;
 import java.util.*;
 
 public class V2VM{
+
+	public static int num_blanks = 0;
 
 	public static VaporProgram parseVapor(InputStream in, PrintStream err) throws
 	IOException {
@@ -31,7 +35,6 @@ public class V2VM{
 					   java.util.Arrays.asList(ops),
 					   allowLocals, registers, allowStack);
 
-			System.out.println(in);	
 			
 		}catch (ProblemException ex) {
 			err.println(ex.getMessage());
@@ -41,16 +44,41 @@ public class V2VM{
 		return tree;
 	}
 
+	public static void print(String output){	
+		String temp = "";
+		for(int i = 0; i < num_blanks; i++){
+			temp += " ";
+		}
+		
+		System.out.println(temp + output);
+	
+	}
+
 	public static void main(String args[]){
 		try{
-			//BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			//InputStreamReader in = new InputStreamReader(System.in);
 
 			PrintStream err = new PrintStream(System.out);
 
 			VaporProgram parse = parseVapor(System.in, err);
 
-			System.out.println(parse.allowLocals);			
+			for(VDataSegment segm : parse.dataSegments){ //print out data segments
+				String mute = "const";
+				
+				if(segm.mutable == true){
+					mute = "var";
+				}
+				
+				print(mute + " " + segm.ident);
+				
+				num_blanks++;
+				for(VOperand value : segm.values){
+					print(value.toString());
+				}
+				num_blanks--;
+			}
+			print("");
+
+
 
 		} catch(Exception e){
 			e.printStackTrace();
