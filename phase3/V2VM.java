@@ -113,17 +113,21 @@ public class V2VM{
 					}
 					
 					match = false;
-
-					
+	
 				}
 				num_blanks--;
 
+				
+
 				System.out.println("[in " + funcs.stack.in + ", out " + funcs.stack.out +
 					", local " + (funcs.stack.local + local_var) + "]");
+	
+				for(int i = 0; i < funcs.labels.length; i++){
+					System.out.println(funcs.labels[i].ident + ":");
+				}
 
-				
 				if(!locals.isEmpty()){
-					System.out.println(locals);
+					//System.out.println(locals);
 				}
 
 				locals.clear();
