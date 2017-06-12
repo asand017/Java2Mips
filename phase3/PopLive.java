@@ -10,9 +10,10 @@ import cs132.vapor.parser.*;
 import cs132.vapor.ast.*;
 import java.io.*;
 import java.util.*;
+import cs132.vapor.ast.VInstr.Visitor;
 
-public class PopLive{
-
+public abstract class PopLive extends Visitor<Exception>{
+	
 	
 
 }

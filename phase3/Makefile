@@ -1,21 +1,25 @@
 all:
 	@javac V2VM.java -classpath vapor-parser.jar
-	@javac Liveness.java -classpath vapor-parser.jar
-	@javac PopLive.java -classpath vapor-parser.jar
-	@javac FlowGraph.java -classpath vapor-parser.jar
-	@javac FlowGraphNode.java -classpath vapor-parser.jar
+	@#@javac Liveness.java -classpath vapor-parser.jar
+	@#@javac PopLive.java -classpath vapor-parser.jar
+	@#@javac FlowGraph.java -classpath vapor-parser.jar
+	@#@javac FlowGraphNode.java -classpath vapor-parser.jar
+	@#@javac PopFlowGraph.java -classpath vapor-parser.jar
 
-FlowGraphNode:
-	@java -cp "./:vapor-parser.jar" FlowGraphNode
+#PopFlowGraph:
+#	@java -cp "./:vapor-parser.jar" PopFlowGraph
 
-FlowGraph:
-	@java -cp "./:vapor-parser.jar" FlowGraph
+#FlowGraphNode:
+#	@java -cp "./:vapor-parser.jar" FlowGraphNode
 
-PopLive:
-	@java -cp "./:vapor-parser.jar" PopLive
+#FlowGraph:
+#	@java -cp "./:vapor-parser.jar" FlowGraph
 
-Liveness:
-	@java -cp "./:vapor-parser.jar" Liveness
+#PopLive:
+#	@java -cp "./:vapor-parser.jar" PopLive
 
-V2VM:
+#Liveness:
+#	@java -cp "./:vapor-parser.jar" Liveness
+
+run:
 	@java -cp "./:vapor-parser.jar" V2VM < Phase3Tests/QuickSort.vapor

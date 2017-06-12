@@ -9,9 +9,10 @@ import cs132.vapor.parser.*;
 import cs132.vapor.ast.*;
 import java.io.*;
 import java.util.*;
+import cs132.vapor.ast.VInstr.Visitor;
 
 //Live interval logic
-public class Liveness{
+public abstract class Liveness extends Visitor<Exception>{
 
 	public String name;
 	public int start;
@@ -22,4 +23,5 @@ public class Liveness{
 		start = st;
 		end = en;	
 	}
+	
 }

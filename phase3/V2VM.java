@@ -9,13 +9,32 @@ import cs132.vapor.parser.VaporParser;
 import cs132.vapor.ast.VaporProgram;
 import cs132.vapor.ast.VBuiltIn.Op;
 import cs132.util.CommandLineLauncher.TextOutput;
+import cs132.vapor.ast.VInstr.Visitor;
 import cs132.util.*;
 import cs132.vapor.ast.*;
 
 import java.io.*;
 import java.util.*;
 
-public class V2VM{
+class Liveness{
+	public String name;
+	public int start;
+	public int end;
+
+	public void set(String n, int st, int en){
+		name = n;
+		start = st;
+		end = en;
+	}
+}
+
+class FlowGraphNode{
+	public 
+}
+
+public abstract class V2VM extends Visitor<Exception>{
+	
+	Liveness x = new Liveness();
 
 	public static ArrayList<String> locals = new ArrayList<String>();
 
