@@ -1,6 +1,6 @@
 /* Team Members: Aaron Sanders, Cristian Ibarra, Leon Peng
  * Phase 3
- * File: PopLive.java
+ * File: ControlFlowNode.java
  *
  *
  */
@@ -11,8 +11,6 @@ import cs132.vapor.ast.*;
 import java.io.*;
 import java.util.*;
 
-public class PopLive{
-
+public class ControlFlowNode{
 	
-
 }
