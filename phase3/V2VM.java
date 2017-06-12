@@ -9,7 +9,7 @@ import cs132.vapor.parser.VaporParser;
 import cs132.vapor.ast.VaporProgram;
 import cs132.vapor.ast.VBuiltIn.Op;
 import cs132.util.CommandLineLauncher.TextOutput;
-import cs132.vapor.ast.VInstr.Visitor;
+import cs132.vapor.ast.VInstr.VisitorP;
 import cs132.util.*;
 import cs132.vapor.ast.*;
 
@@ -29,18 +29,46 @@ class Liveness{
 }
 
 class FlowGraphNode{
-	public 
+	public int current_line;
+	public ArrayList<Integer> succ = new ArrayList<Integer>();
+	public ArrayList<Integer> pred = new ArrayList<Integer>();
+		
+	public void set(int curr){
+		current_line = curr;
+	} 
+	
+	public void add_out(int out){
+		succ.add(out);	
+	}
+		
+	public void add_in(int in){
+		pred.add(in);
+	}
 }
 
-public abstract class V2VM extends Visitor<Exception>{
+class FlowGraph{
+	Map<Integer, FlowGraphNode> graph = new HashMap<Integer, FlowGraphNode>();
+	ArrayList<Liveness> vars = new ArrayList<Liveness>();//instr line#, graph node	
+}
+
+public abstract class V2VM extends VisitorP<Integer, Exception>{
+
+	FlowGraph graph = new FlowGraph();
 	
 	Liveness x = new Liveness();
+	
+	public static ArrayList<Integer> live_list = new ArrayList<Integer>();
 
 	public static ArrayList<String> locals = new ArrayList<String>();
 
 	public static int num_blanks = 0;
 
 	public static int local_var = 0;
+
+	@Override
+	public void visit(Integer p, VAssign a) throws Exception {
+		System.out.println(a.sourcePos.line);
+	}
 
 	public static VaporProgram parseVapor(InputStream in, PrintStream err) throws
 	IOException {
@@ -101,13 +129,19 @@ public abstract class V2VM extends Visitor<Exception>{
 			}
 			//print("");
 
+			for(VFunction funcs : parse.functions){
+				for(int i = 0; i < funcs.body.length; i++){
+					live_list.add(funcs.body[i].sourcePos.line);
+				}	
+			}
+
+
 			for(VFunction funcs : parse.functions){ //visit each function
+
 				System.out.println();		
 				
 				System.out.print("func " + funcs.ident + " ");			
 	
-				//System.out.println("[in " + funcs.stack.in + ", out " + funcs.stack.out +
-				//	", local " + funcs.stack.local + "]");
 
 				boolean match = false;			
 				num_blanks++;	
