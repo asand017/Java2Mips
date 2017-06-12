@@ -2,14 +2,14 @@ all:
 	@javac V2VM.java -classpath vapor-parser.jar
 	@javac Liveness.java -classpath vapor-parser.jar
 	@javac PopLive.java -classpath vapor-parser.jar
-	@javac ControlFlowG.java -classpath vapor-parser.jar
-	@javac ControlFlowNode.java -classpath vapor-parser.jar
+	@javac FlowGraph.java -classpath vapor-parser.jar
+	@javac FlowGraphNode.java -classpath vapor-parser.jar
 
-ControlFlowNode:
-	@java -cp "./:vapor-parser.jar" ControlFlowNode
+FlowGraphNode:
+	@java -cp "./:vapor-parser.jar" FlowGraphNode
 
-ControlFlowG:
-	@java -cp "./:vapor-parser.jar" ControlFlowG
+FlowGraph:
+	@java -cp "./:vapor-parser.jar" FlowGraph
 
 PopLive:
 	@java -cp "./:vapor-parser.jar" PopLive
